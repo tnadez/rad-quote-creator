@@ -1,0 +1,69 @@
+
+import { useState } from 'react';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+import { Material } from '@/lib/types';
+
+interface MaterialSelectorProps {
+  materials: Material[];
+  selectedMaterial: Material | null;
+  onSelectMaterial: (material: Material) => void;
+}
+
+const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: MaterialSelectorProps) => {
+  return (
+    <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold text-blue-400">Select Material</CardTitle>
+        <CardDescription className="text-gray-300">
+          Choose the material for your custom radiator
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <RadioGroup 
+          value={selectedMaterial?.id || ""} 
+          onValueChange={(value) => {
+            const material = materials.find(m => m.id === value);
+            if (material) onSelectMaterial(material);
+          }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {materials.map((material) => (
+              <div key={material.id} className="relative">
+                <RadioGroupItem
+                  value={material.id}
+                  id={material.id}
+                  className="sr-only"
+                />
+                <Label
+                  htmlFor={material.id}
+                  className={`radiator-option flex flex-col items-center p-4 rounded-lg border-2 cursor-pointer ${
+                    selectedMaterial?.id === material.id 
+                      ? "border-blue-500 bg-blue-900/20" 
+                      : "border-slate-700 bg-slate-900 hover:border-slate-500"
+                  }`}
+                >
+                  <div className="w-32 h-32 mb-2 rounded overflow-hidden bg-slate-700 flex items-center justify-center">
+                    <img 
+                      src={material.image} 
+                      alt={material.name} 
+                      className="object-cover w-full h-full" 
+                    />
+                  </div>
+                  <h3 className="text-xl font-medium text-white">{material.name}</h3>
+                  <p className="text-sm text-gray-300 mt-2 text-center">{material.description}</p>
+                  <p className="mt-3 text-lg font-semibold text-blue-400">
+                    ${material.pricePerSquareInch.toFixed(2)}/sq. in
+                  </p>
+                </Label>
+              </div>
+            ))}
+          </div>
+        </RadioGroup>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default MaterialSelector;
