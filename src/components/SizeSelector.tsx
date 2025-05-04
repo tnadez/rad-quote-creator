@@ -52,9 +52,9 @@ const SizeSelector = ({
   return (
     <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-400">Select Size</CardTitle>
+        <CardTitle className="text-2xl font-bold text-blue-400">เลือกขนาด</CardTitle>
         <CardDescription className="text-gray-300">
-          Choose the dimensions for your radiator
+          เลือกขนาดสำหรับหม้อน้ำของคุณ
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -88,12 +88,12 @@ const SizeSelector = ({
                 >
                   <h3 className="text-xl font-medium text-white">{size.name}</h3>
                   <div className="mt-2 space-y-1 text-gray-300">
-                    <p>Width: {size.width} inches</p>
-                    <p>Height: {size.height} inches</p>
-                    <p>Thickness: {size.thickness} inches</p>
+                    <p>กว้าง: {size.width} นิ้ว</p>
+                    <p>สูง: {size.height} นิ้ว</p>
+                    <p>หนา: {size.thickness} นิ้ว</p>
                   </div>
                   <p className="mt-3 text-lg font-semibold text-blue-400">
-                    Base Price: ${size.price.toFixed(2)}
+                    ราคาพื้นฐาน: ฿{(size.price * 30).toFixed(2)}
                   </p>
                 </Label>
               </div>
@@ -114,12 +114,12 @@ const SizeSelector = ({
                     : "border-slate-700 bg-slate-900 hover:border-slate-500"
                 }`}
               >
-                <h3 className="text-xl font-medium text-white">Custom Size</h3>
-                <p className="text-sm text-gray-300 mb-2">Define your own dimensions</p>
+                <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
+                <p className="text-sm text-gray-300 mb-2">กำหนดขนาดของคุณเอง</p>
                 
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   <div>
-                    <Label htmlFor="width" className="text-sm text-gray-300">Width (in)</Label>
+                    <Label htmlFor="width" className="text-sm text-gray-300">กว้าง (นิ้ว)</Label>
                     <Input 
                       id="width"
                       type="number"
@@ -132,7 +132,7 @@ const SizeSelector = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="height" className="text-sm text-gray-300">Height (in)</Label>
+                    <Label htmlFor="height" className="text-sm text-gray-300">สูง (นิ้ว)</Label>
                     <Input 
                       id="height"
                       type="number"
@@ -145,7 +145,7 @@ const SizeSelector = ({
                     />
                   </div>
                   <div>
-                    <Label htmlFor="thickness" className="text-sm text-gray-300">Thickness (in)</Label>
+                    <Label htmlFor="thickness" className="text-sm text-gray-300">หนา (นิ้ว)</Label>
                     <Input 
                       id="thickness"
                       type="number"
@@ -160,7 +160,7 @@ const SizeSelector = ({
                   </div>
                 </div>
                 <p className="mt-3 text-sm text-gray-300">
-                  Custom sizing includes a $150 base fee + material costs
+                  การกำหนดขนาดเองมีค่าธรรมเนียมพื้นฐาน ฿4,500 + ค่าวัสดุ
                 </p>
               </Label>
             </div>

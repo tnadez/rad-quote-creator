@@ -7,11 +7,11 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-white">
-            Custom Car Radiator
-            <span className="block text-blue-400">Configurator</span>
+            ระบบออกแบบหม้อน้ำรถยนต์
+            <span className="block text-blue-400">แบบกำหนดเอง</span>
           </h1>
           <p className="mt-3 text-xl text-gray-300 max-w-2xl">
-            Design your perfect cooling solution with our interactive radiator builder
+            ออกแบบระบบระบายความร้อนที่สมบูรณ์แบบสำหรับคุณด้วยเครื่องมือออกแบบหม้อน้ำแบบโต้ตอบของเรา
           </p>
           <Separator className="mt-6 bg-slate-700/50" />
         </div>

@@ -18,9 +18,9 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
   return (
     <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-400">Additional Features</CardTitle>
+        <CardTitle className="text-2xl font-bold text-blue-400">คุณสมบัติเพิ่มเติม</CardTitle>
         <CardDescription className="text-gray-300">
-          Customize your radiator with premium add-ons
+          ปรับแต่งหม้อน้ำของคุณด้วยอุปกรณ์เสริมระดับพรีเมียม
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -52,7 +52,7 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
                     {feature.name}
                   </Label>
                   <span className="text-lg font-semibold text-blue-400">
-                    +${feature.price.toFixed(2)}
+                    +฿{(feature.price * 30).toFixed(2)}
                   </span>
                 </div>
                 <p className="mt-1 text-sm text-gray-300">{feature.description}</p>

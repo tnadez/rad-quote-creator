@@ -4,22 +4,22 @@ import { Material, RadiatorSize, AdditionalFeature } from './types';
 export const materials: Material[] = [
   {
     id: 'aluminum',
-    name: 'Aluminum',
-    description: 'Lightweight and offers excellent heat dissipation properties, ideal for most applications.',
+    name: 'อะลูมิเนียม',
+    description: 'น้ำหนักเบาและมีคุณสมบัติในการกระจายความร้อนที่ยอดเยี่ยม เหมาะสำหรับการใช้งานทั่วไป',
     pricePerSquareInch: 0.5,
     image: '/placeholder.svg'
   },
   {
     id: 'copper',
-    name: 'Copper',
-    description: 'Superior thermal conductivity, provides optimal cooling for high-performance applications.',
+    name: 'ทองแดง',
+    description: 'การนำความร้อนที่เหนือกว่า ให้การระบายความร้อนที่ดีที่สุดสำหรับการใช้งานแบบสมรรถนะสูง',
     pricePerSquareInch: 0.8,
     image: '/placeholder.svg'
   },
   {
     id: 'brass',
-    name: 'Brass',
-    description: 'Excellent corrosion resistance and good heat transfer capabilities, suitable for harsh environments.',
+    name: 'ทองเหลือง',
+    description: 'ต้านทานการกัดกร่อนได้ดีเยี่ยมและมีความสามารถในการถ่ายเทความร้อนที่ดี เหมาะสำหรับสภาพแวดล้อมที่รุนแรง',
     pricePerSquareInch: 0.7,
     image: '/placeholder.svg'
   }
@@ -28,7 +28,7 @@ export const materials: Material[] = [
 export const sizes: RadiatorSize[] = [
   {
     id: 'small',
-    name: 'Small (Standard)',
+    name: 'เล็ก (มาตรฐาน)',
     width: 18,
     height: 12,
     thickness: 2,
@@ -36,7 +36,7 @@ export const sizes: RadiatorSize[] = [
   },
   {
     id: 'medium',
-    name: 'Medium (Performance)',
+    name: 'กลาง (สมรรถนะสูง)',
     width: 24,
     height: 16,
     thickness: 2.5,
@@ -44,7 +44,7 @@ export const sizes: RadiatorSize[] = [
   },
   {
     id: 'large',
-    name: 'Large (Racing)',
+    name: 'ใหญ่ (แข่งขัน)',
     width: 30,
     height: 18,
     thickness: 3,
@@ -52,7 +52,7 @@ export const sizes: RadiatorSize[] = [
   },
   {
     id: 'custom',
-    name: 'Custom Size',
+    name: 'ขนาดกำหนดเอง',
     width: 0,
     height: 0,
     thickness: 0,
@@ -63,29 +63,29 @@ export const sizes: RadiatorSize[] = [
 export const additionalFeatures: AdditionalFeature[] = [
   {
     id: 'fan',
-    name: 'High-Flow Cooling Fan',
-    description: 'Increases airflow through the radiator for improved cooling efficiency.',
+    name: 'พัดลมระบายความร้อนแรงดันสูง',
+    description: 'เพิ่มการไหลของอากาศผ่านหม้อน้ำเพื่อประสิทธิภาพการระบายความร้อนที่ดีขึ้น',
     price: 85,
     image: '/placeholder.svg'
   },
   {
     id: 'shroud',
-    name: 'Custom Fan Shroud',
-    description: 'Directs airflow for maximum cooling efficiency and optimal performance.',
+    name: 'ฝาครอบพัดลมแบบกำหนดเอง',
+    description: 'นำทางการไหลของอากาศเพื่อประสิทธิภาพการระบายความร้อนสูงสุดและสมรรถนะที่ดีที่สุด',
     price: 65,
     image: '/placeholder.svg'
   },
   {
     id: 'cap',
-    name: 'High-Pressure Radiator Cap',
-    description: 'Increases system pressure allowing for higher coolant temperatures without boiling.',
+    name: 'ฝาหม้อน้ำแรงดันสูง',
+    description: 'เพิ่มแรงดันระบบช่วยให้น้ำหล่อเย็นทนอุณหภูมิสูงโดยไม่เดือด',
     price: 25,
     image: '/placeholder.svg'
   },
   {
     id: 'coating',
-    name: 'Ceramic Coating',
-    description: 'Adds thermal protection and a stylish finish to external radiator components.',
+    name: 'เคลือบเซรามิก',
+    description: 'เพิ่มการป้องกันความร้อนและการตกแต่งที่สวยงามให้กับชิ้นส่วนภายนอกของหม้อน้ำ',
     price: 110,
     image: '/placeholder.svg'
   }

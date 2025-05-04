@@ -26,8 +26,8 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
   
   const handleRequestQuote = () => {
     // In a real application, we would send this data to the server
-    toast.success("Quote request submitted!", {
-      description: "We'll contact you shortly with your custom radiator quote."
+    toast.success("ส่งคำขอใบเสนอราคาเรียบร้อย!", {
+      description: "เราจะติดต่อกลับเร็วๆ นี้พร้อมใบเสนอราคาหม้อน้ำแบบกำหนดเองของคุณ"
     });
     setIsDialogOpen(false);
     
@@ -44,67 +44,67 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
     <>
       <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl animate-fadeIn">
         <CardHeader>
-          <CardTitle className="text-2xl font-bold text-blue-400">Your Quote Summary</CardTitle>
+          <CardTitle className="text-2xl font-bold text-blue-400">สรุปใบเสนอราคาของคุณ</CardTitle>
           <CardDescription className="text-gray-300">
-            Review your custom radiator configuration
+            ตรวจสอบการกำหนดค่าหม้อน้ำแบบกำหนดเองของคุณ
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <h3 className="text-lg font-medium mb-2">Selected Material</h3>
+            <h3 className="text-lg font-medium mb-2">วัสดุที่เลือก</h3>
             {material ? (
               <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
                 <div className="flex justify-between">
                   <p className="font-medium">{material.name}</p>
-                  <p className="text-blue-400">${material.pricePerSquareInch.toFixed(2)}/sq. in</p>
+                  <p className="text-blue-400">฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว</p>
                 </div>
               </div>
             ) : (
-              <p className="text-gray-400">No material selected</p>
+              <p className="text-gray-400">ยังไม่ได้เลือกวัสดุ</p>
             )}
           </div>
           
           <div>
-            <h3 className="text-lg font-medium mb-2">Selected Size</h3>
+            <h3 className="text-lg font-medium mb-2">ขนาดที่เลือก</h3>
             {size ? (
               <div className="bg-slate-900 rounded-lg p-3 border border-slate-700">
                 <div className="flex justify-between mb-1">
                   <p className="font-medium">{size.name}</p>
-                  {size.id !== 'custom' && <p className="text-blue-400">${size.price.toFixed(2)}</p>}
+                  {size.id !== 'custom' && <p className="text-blue-400">฿{(size.price * 30).toFixed(2)}</p>}
                 </div>
                 <div className="text-sm text-gray-300 space-y-1">
-                  {size.width > 0 && <p>Width: {size.width} inches</p>}
-                  {size.height > 0 && <p>Height: {size.height} inches</p>}
-                  {size.thickness > 0 && <p>Thickness: {size.thickness} inches</p>}
-                  {size.id === 'custom' && <p className="mt-2 text-blue-400">Base custom fee: $150.00</p>}
+                  {size.width > 0 && <p>กว้าง: {size.width} นิ้ว</p>}
+                  {size.height > 0 && <p>สูง: {size.height} นิ้ว</p>}
+                  {size.thickness > 0 && <p>หนา: {size.thickness} นิ้ว</p>}
+                  {size.id === 'custom' && <p className="mt-2 text-blue-400">ค่าธรรมเนียมพื้นฐาน: ฿4,500.00</p>}
                 </div>
               </div>
             ) : (
-              <p className="text-gray-400">No size selected</p>
+              <p className="text-gray-400">ยังไม่ได้เลือกขนาด</p>
             )}
           </div>
           
           <div>
-            <h3 className="text-lg font-medium mb-2">Selected Features</h3>
+            <h3 className="text-lg font-medium mb-2">คุณสมบัติที่เลือก</h3>
             {features.length > 0 ? (
               <div className="bg-slate-900 rounded-lg p-3 border border-slate-700 space-y-2">
                 {features.map(feature => (
                   <div key={feature.id} className="flex justify-between">
                     <p>{feature.name}</p>
-                    <p className="text-blue-400">+${feature.price.toFixed(2)}</p>
+                    <p className="text-blue-400">+฿{(feature.price * 30).toFixed(2)}</p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-400">No additional features selected</p>
+              <p className="text-gray-400">ไม่มีคุณสมบัติเพิ่มเติมที่เลือก</p>
             )}
           </div>
           
           <Separator className="my-4 bg-slate-700" />
           
           <div className="flex justify-between items-center">
-            <h3 className="text-xl font-medium">Total Estimated Price</h3>
-            <p className="text-2xl font-bold text-blue-400">${totalPrice.toFixed(2)}</p>
+            <h3 className="text-xl font-medium">ราคาประมาณ</h3>
+            <p className="text-2xl font-bold text-blue-400">฿{(totalPrice * 30).toFixed(2)}</p>
           </div>
         </CardContent>
         <CardFooter>
@@ -114,7 +114,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
             className="w-full bg-blue-600 hover:bg-blue-700 text-white"
             size="lg"
           >
-            Request Official Quote
+            ขอใบเสนอราคา
           </Button>
         </CardFooter>
       </Card>
@@ -122,54 +122,54 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="bg-slate-800 text-white border-slate-700">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-blue-400">Request Your Quote</DialogTitle>
+            <DialogTitle className="text-2xl font-bold text-blue-400">ขอใบเสนอราคาของคุณ</DialogTitle>
             <DialogDescription className="text-gray-300">
-              Fill in your details and we'll send you an official quote for your custom radiator.
+              กรอกรายละเอียดของคุณและเราจะส่งใบเสนอราคาอย่างเป็นทางการสำหรับหม้อน้ำแบบกำหนดเองของคุณ
             </DialogDescription>
           </DialogHeader>
           
           <div className="space-y-4 py-2">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">ชื่อ-นามสกุล</Label>
               <Input 
                 id="name" 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
-                placeholder="John Smith"
+                placeholder="นายสมชาย ใจดี"
                 className="bg-slate-900 border-slate-700"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">อีเมล</Label>
               <Input 
                 id="email" 
                 type="email"
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)} 
-                placeholder="john@example.com"
+                placeholder="somchai@example.com"
                 className="bg-slate-900 border-slate-700"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone (optional)</Label>
+              <Label htmlFor="phone">โทรศัพท์ (ไม่บังคับ)</Label>
               <Input 
                 id="phone" 
                 value={phone} 
                 onChange={(e) => setPhone(e.target.value)} 
-                placeholder="(123) 456-7890"
+                placeholder="081-234-5678"
                 className="bg-slate-900 border-slate-700"
               />
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="message">Additional Comments (optional)</Label>
+              <Label htmlFor="message">ความคิดเห็นเพิ่มเติม (ไม่บังคับ)</Label>
               <Textarea 
                 id="message" 
                 value={message} 
                 onChange={(e) => setMessage(e.target.value)} 
-                placeholder="Any specific requirements or questions..."
+                placeholder="ความต้องการเฉพาะหรือคำถาม..."
                 className="bg-slate-900 border-slate-700 min-h-[100px]"
               />
             </div>
@@ -181,7 +181,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
               disabled={!name || !email}
               className="w-full bg-blue-600 hover:bg-blue-700 text-white"
             >
-              Submit Quote Request
+              ส่งคำขอใบเสนอราคา
             </Button>
           </DialogFooter>
         </DialogContent>

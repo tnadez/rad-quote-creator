@@ -15,9 +15,9 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
   return (
     <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-400">Select Material</CardTitle>
+        <CardTitle className="text-2xl font-bold text-blue-400">เลือกวัสดุ</CardTitle>
         <CardDescription className="text-gray-300">
-          Choose the material for your custom radiator
+          เลือกวัสดุสำหรับหม้อน้ำแบบกำหนดเองของคุณ
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -54,7 +54,7 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
                   <h3 className="text-xl font-medium text-white">{material.name}</h3>
                   <p className="text-sm text-gray-300 mt-2 text-center">{material.description}</p>
                   <p className="mt-3 text-lg font-semibold text-blue-400">
-                    ${material.pricePerSquareInch.toFixed(2)}/sq. in
+                    ฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว
                   </p>
                 </Label>
               </div>
