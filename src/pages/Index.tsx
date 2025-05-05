@@ -48,7 +48,7 @@ const Index = () => {
   }, [selectedMaterial, selectedSize, selectedFeatures]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen">
       <Header />
       
       <main className="container mx-auto px-4 py-8 flex-1">
@@ -87,20 +87,20 @@ const Index = () => {
         </div>
         
         <div className="my-12">
-          <Separator className="bg-gray-200" />
-          <div className="mt-8 bg-gray-50 rounded-lg p-6 border border-gray-200">
-            <h2 className="text-2xl font-medium text-gray-700 mb-4">ทำไมต้องเลือกหม้อน้ำแบบกำหนดเอง?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-600">
+          <Separator className="bg-orange-700" />
+          <div className="mt-8 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 rounded-lg p-6 border border-amber-700 text-white">
+            <h2 className="text-2xl font-bold text-amber-300 mb-4">ทำไมต้องเลือกหม้อน้ำแบบกำหนดเอง?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-amber-200">
               <div>
-                <h3 className="text-xl font-medium mb-2 text-gray-700">เพิ่มประสิทธิภาพสูงสุด</h3>
+                <h3 className="text-xl font-semibold mb-2 text-white">เพิ่มประสิทธิภาพสูงสุด</h3>
                 <p>หม้อน้ำแบบกำหนดเองสามารถออกแบบเฉพาะสำหรับความต้องการในการระบายความร้อนของรถคุณ ช่วยให้มั่นใจได้ว่าจะมีประสิทธิภาพสูงสุดในทุกสภาวะ</p>
               </div>
               <div>
-                <h3 className="text-xl font-medium mb-2 text-gray-700">พอดีกับรถของคุณ</h3>
+                <h3 className="text-xl font-semibold mb-2 text-white">พอดีกับรถของคุณ</h3>
                 <p>ขนาดที่กำหนดเองช่วยให้หม้อน้ำของคุณพอดีกับห้องเครื่องอย่างสมบูรณ์แบบ หลีกเลี่ยงปัญหาการติดขัดกับชิ้นส่วนอื่นๆ</p>
               </div>
               <div>
-                <h3 className="text-xl font-medium mb-2 text-gray-700">ประโยชน์ของวัสดุ</h3>
+                <h3 className="text-xl font-semibold mb-2 text-white">ประโยชน์ของวัสดุ</h3>
                 <p>เลือกวัสดุตามความต้องการเฉพาะของคุณ ไม่ว่าจะเป็นอะลูมิเนียมน้ำหนักเบาสำหรับการแข่งขัน หรือทองแดงสำหรับการระบายความร้อนสูงสุด</p>
               </div>
             </div>
