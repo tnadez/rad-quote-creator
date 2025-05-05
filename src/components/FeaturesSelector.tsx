@@ -16,10 +16,10 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
   };
 
   return (
-    <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
+    <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-400">คุณสมบัติเพิ่มเติม</CardTitle>
-        <CardDescription className="text-gray-300">
+        <CardTitle className="text-2xl font-bold text-amber-300">คุณสมบัติเพิ่มเติม</CardTitle>
+        <CardDescription className="text-amber-100">
           ปรับแต่งหม้อน้ำของคุณด้วยอุปกรณ์เสริมระดับพรีเมียม
         </CardDescription>
       </CardHeader>
@@ -30,8 +30,8 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
               key={feature.id} 
               className={`radiator-option flex items-start p-4 rounded-lg border-2 cursor-pointer ${
                 isSelected(feature.id) 
-                  ? "border-blue-500 bg-blue-900/20" 
-                  : "border-slate-700 bg-slate-900 hover:border-slate-500"
+                  ? "border-amber-500 bg-amber-900/60" 
+                  : "border-orange-700 bg-orange-950 hover:border-orange-500"
               }`}
               onClick={() => onToggleFeature(feature)}
             >
@@ -40,7 +40,7 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
                   id={feature.id} 
                   checked={isSelected(feature.id)}
                   onCheckedChange={() => onToggleFeature(feature)}
-                  className="data-[state=checked]:bg-blue-500 data-[state=checked]:text-primary-foreground"
+                  className="data-[state=checked]:bg-amber-500 data-[state=checked]:text-primary-foreground"
                 />
               </div>
               <div className="flex-1">
@@ -51,11 +51,11 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
                   >
                     {feature.name}
                   </Label>
-                  <span className="text-lg font-semibold text-blue-400">
+                  <span className="text-lg font-semibold text-amber-300">
                     +฿{(feature.price * 30).toFixed(2)}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-gray-300">{feature.description}</p>
+                <p className="mt-1 text-sm text-amber-200">{feature.description}</p>
               </div>
             </div>
           ))}

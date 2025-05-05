@@ -87,10 +87,10 @@ const Index = () => {
         </div>
         
         <div className="my-12">
-          <Separator className="bg-slate-700/50" />
-          <div className="mt-8 bg-slate-800 rounded-lg p-6 border border-slate-700 text-white">
-            <h2 className="text-2xl font-bold text-blue-400 mb-4">ทำไมต้องเลือกหม้อน้ำแบบกำหนดเอง?</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-gray-300">
+          <Separator className="bg-orange-700" />
+          <div className="mt-8 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 rounded-lg p-6 border border-amber-700 text-white">
+            <h2 className="text-2xl font-bold text-amber-300 mb-4">ทำไมต้องเลือกหม้อน้ำแบบกำหนดเอง?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-amber-200">
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">เพิ่มประสิทธิภาพสูงสุด</h3>
                 <p>หม้อน้ำแบบกำหนดเองสามารถออกแบบเฉพาะสำหรับความต้องการในการระบายความร้อนของรถคุณ ช่วยให้มั่นใจได้ว่าจะมีประสิทธิภาพสูงสุดในทุกสภาวะ</p>

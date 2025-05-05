@@ -50,10 +50,10 @@ const SizeSelector = ({
   };
 
   return (
-    <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
+    <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-400">เลือกขนาด</CardTitle>
-        <CardDescription className="text-gray-300">
+        <CardTitle className="text-2xl font-bold text-amber-300">เลือกขนาด</CardTitle>
+        <CardDescription className="text-amber-100">
           เลือกขนาดสำหรับหม้อน้ำของคุณ
         </CardDescription>
       </CardHeader>
@@ -82,17 +82,17 @@ const SizeSelector = ({
                   htmlFor={size.id}
                   className={`radiator-option flex flex-col p-4 rounded-lg border-2 cursor-pointer ${
                     selectedSize?.id === size.id 
-                      ? "border-blue-500 bg-blue-900/20" 
-                      : "border-slate-700 bg-slate-900 hover:border-slate-500"
+                      ? "border-amber-500 bg-amber-900/60" 
+                      : "border-orange-700 bg-orange-950 hover:border-orange-500"
                   }`}
                 >
                   <h3 className="text-xl font-medium text-white">{size.name}</h3>
-                  <div className="mt-2 space-y-1 text-gray-300">
+                  <div className="mt-2 space-y-1 text-amber-200">
                     <p>กว้าง: {size.width} นิ้ว</p>
                     <p>สูง: {size.height} นิ้ว</p>
                     <p>หนา: {size.thickness} นิ้ว</p>
                   </div>
-                  <p className="mt-3 text-lg font-semibold text-blue-400">
+                  <p className="mt-3 text-lg font-semibold text-amber-300">
                     ราคาพื้นฐาน: ฿{(size.price * 30).toFixed(2)}
                   </p>
                 </Label>
@@ -110,16 +110,16 @@ const SizeSelector = ({
                 htmlFor="custom"
                 className={`radiator-option flex flex-col p-4 rounded-lg border-2 cursor-pointer ${
                   selectedSize?.id === 'custom' 
-                    ? "border-blue-500 bg-blue-900/20" 
-                    : "border-slate-700 bg-slate-900 hover:border-slate-500"
+                    ? "border-amber-500 bg-amber-900/60" 
+                    : "border-orange-700 bg-orange-950 hover:border-orange-500"
                 }`}
               >
                 <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
-                <p className="text-sm text-gray-300 mb-2">กำหนดขนาดของคุณเอง</p>
+                <p className="text-sm text-amber-200 mb-2">กำหนดขนาดของคุณเอง</p>
                 
                 <div className="grid grid-cols-3 gap-2 mt-2">
                   <div>
-                    <Label htmlFor="width" className="text-sm text-gray-300">กว้าง (นิ้ว)</Label>
+                    <Label htmlFor="width" className="text-sm text-amber-200">กว้าง (นิ้ว)</Label>
                     <Input 
                       id="width"
                       type="number"
@@ -128,11 +128,11 @@ const SizeSelector = ({
                       value={customWidth}
                       onChange={(e) => handleCustomSizeChange('width', e.target.value)}
                       disabled={selectedSize?.id !== 'custom'}
-                      className="bg-slate-700 text-white border-slate-600"
+                      className="bg-orange-800 text-white border-orange-600"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="height" className="text-sm text-gray-300">สูง (นิ้ว)</Label>
+                    <Label htmlFor="height" className="text-sm text-amber-200">สูง (นิ้ว)</Label>
                     <Input 
                       id="height"
                       type="number"
@@ -141,11 +141,11 @@ const SizeSelector = ({
                       value={customHeight}
                       onChange={(e) => handleCustomSizeChange('height', e.target.value)}
                       disabled={selectedSize?.id !== 'custom'}
-                      className="bg-slate-700 text-white border-slate-600"
+                      className="bg-orange-800 text-white border-orange-600"
                     />
                   </div>
                   <div>
-                    <Label htmlFor="thickness" className="text-sm text-gray-300">หนา (นิ้ว)</Label>
+                    <Label htmlFor="thickness" className="text-sm text-amber-200">หนา (นิ้ว)</Label>
                     <Input 
                       id="thickness"
                       type="number"
@@ -155,11 +155,11 @@ const SizeSelector = ({
                       value={customThickness}
                       onChange={(e) => handleCustomSizeChange('thickness', e.target.value)}
                       disabled={selectedSize?.id !== 'custom'}
-                      className="bg-slate-700 text-white border-slate-600"
+                      className="bg-orange-800 text-white border-orange-600"
                     />
                   </div>
                 </div>
-                <p className="mt-3 text-sm text-gray-300">
+                <p className="mt-3 text-sm text-amber-200">
                   การกำหนดขนาดเองมีค่าธรรมเนียมพื้นฐาน ฿4,500 + ค่าวัสดุ
                 </p>
               </Label>

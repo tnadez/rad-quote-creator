@@ -13,10 +13,10 @@ interface MaterialSelectorProps {
 
 const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: MaterialSelectorProps) => {
   return (
-    <Card className="w-full border-2 border-slate-700 bg-slate-800 text-white shadow-xl">
+    <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-blue-400">เลือกวัสดุ</CardTitle>
-        <CardDescription className="text-gray-300">
+        <CardTitle className="text-2xl font-bold text-amber-300">เลือกวัสดุ</CardTitle>
+        <CardDescription className="text-amber-100">
           เลือกวัสดุสำหรับหม้อน้ำแบบกำหนดเองของคุณ
         </CardDescription>
       </CardHeader>
@@ -40,11 +40,11 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
                   htmlFor={material.id}
                   className={`radiator-option flex flex-col items-center p-4 rounded-lg border-2 cursor-pointer ${
                     selectedMaterial?.id === material.id 
-                      ? "border-blue-500 bg-blue-900/20" 
-                      : "border-slate-700 bg-slate-900 hover:border-slate-500"
+                      ? "border-amber-500 bg-amber-900/60" 
+                      : "border-orange-700 bg-orange-950 hover:border-orange-500"
                   }`}
                 >
-                  <div className="w-32 h-32 mb-2 rounded overflow-hidden bg-slate-700 flex items-center justify-center">
+                  <div className="w-32 h-32 mb-2 rounded overflow-hidden bg-orange-800 flex items-center justify-center">
                     <img 
                       src={material.image} 
                       alt={material.name} 
@@ -52,8 +52,8 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
                     />
                   </div>
                   <h3 className="text-xl font-medium text-white">{material.name}</h3>
-                  <p className="text-sm text-gray-300 mt-2 text-center">{material.description}</p>
-                  <p className="mt-3 text-lg font-semibold text-blue-400">
+                  <p className="text-sm text-amber-200 mt-2 text-center">{material.description}</p>
+                  <p className="mt-3 text-lg font-semibold text-amber-300">
                     ฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว
                   </p>
                 </Label>
