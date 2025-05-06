@@ -7,6 +7,13 @@ export const materials: Material[] = [
     description: 'การนำความร้อนที่เหนือกว่า ให้การระบายความร้อนที่ดีที่สุดสำหรับการใช้งานแบบสมรรถนะสูง',
     pricePerSquareInch: 0.8,
     image: '/images/copper-radiator.jpg'
+  },
+  {
+    id: 'brass',
+    name: 'ทองเหลือง',
+    description: 'ทนทานและสวยงาม เหมาะกับการใช้งานทั่วไปและให้ความสวยงามแบบคลาสสิก',
+    pricePerSquareInch: 0.65,
+    image: '/images/brass-radiator.jpg'
   }
 ];
 
