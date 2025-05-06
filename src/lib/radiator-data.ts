@@ -2,25 +2,11 @@ import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
   {
-    id: 'aluminum',
-    name: 'อะลูมิเนียม',
-    description: 'น้ำหนักเบาและมีคุณสมบัติในการกระจายความร้อนที่ยอดเยี่ยม เหมาะสำหรับการใช้งานทั่วไป',
-    pricePerSquareInch: 0.5,
-    image: '/images/aluminum-radiator.jpg'
-  },
-  {
     id: 'copper',
     name: 'ทองแดง',
     description: 'การนำความร้อนที่เหนือกว่า ให้การระบายความร้อนที่ดีที่สุดสำหรับการใช้งานแบบสมรรถนะสูง',
     pricePerSquareInch: 0.8,
     image: '/images/copper-radiator.jpg'
-  },
-  {
-    id: 'brass',
-    name: 'ทองเหลือง',
-    description: 'ต้านทานการกัดกร่อนได้ดีเยี่ยมและมีความสามารถในการถ่ายเทความร้อนที่ดี เหมาะสำหรับสภาพแวดล้อมที่รุนแรง',
-    pricePerSquareInch: 0.7,
-    image: '/placeholder.svg'
   }
 ];
 

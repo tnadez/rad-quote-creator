@@ -4,16 +4,15 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MaterialSelector from '@/components/MaterialSelector';
 import SizeSelector from '@/components/SizeSelector';
-import FeaturesSelector from '@/components/FeaturesSelector';
 import QuoteSummary from '@/components/QuoteSummary';
-import { materials, sizes, additionalFeatures, calculateTotalPrice } from '@/lib/radiator-data';
-import { Material, RadiatorSize, AdditionalFeature } from '@/lib/types';
+import { materials, sizes, calculateTotalPrice } from '@/lib/radiator-data';
+import { Material, RadiatorSize } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
 
 const Index = () => {
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
   const [selectedSize, setSelectedSize] = useState<RadiatorSize | null>(null);
-  const [selectedFeatures, setSelectedFeatures] = useState<AdditionalFeature[]>([]);
+  const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Handle custom size updates
@@ -27,18 +26,6 @@ const Index = () => {
       };
       setSelectedSize(updatedSize);
     }
-  };
-
-  // Toggle a feature on/off
-  const handleToggleFeature = (feature: AdditionalFeature) => {
-    setSelectedFeatures(prev => {
-      const isSelected = prev.some(f => f.id === feature.id);
-      if (isSelected) {
-        return prev.filter(f => f.id !== feature.id);
-      } else {
-        return [...prev, feature];
-      }
-    });
   };
 
   // Calculate total price whenever configuration changes
@@ -65,12 +52,6 @@ const Index = () => {
               selectedSize={selectedSize}
               onSelectSize={setSelectedSize}
               onUpdateCustomSize={handleCustomSizeUpdate}
-            />
-            
-            <FeaturesSelector 
-              features={additionalFeatures}
-              selectedFeatures={selectedFeatures}
-              onToggleFeature={handleToggleFeature}
             />
           </div>
           
@@ -101,7 +82,7 @@ const Index = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">ประโยชน์ของวัสดุ</h3>
-                <p>เลือกวัสดุตามความต้องการเฉพาะของคุณ ไม่ว่าจะเป็นอะลูมิเนียมน้ำหนักเบาสำหรับการแข่งขัน หรือทองแดงสำหรับการระบายความร้อนสูงสุด</p>
+                <p>เลือกวัสดุตามความต้องการเฉพาะของคุณ ไม่ว่าจะเป็นทองแดงสำหรับการระบายความร้อนสูงสุด</p>
               </div>
             </div>
           </div>

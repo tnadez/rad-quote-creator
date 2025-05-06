@@ -84,22 +84,6 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
             )}
           </div>
           
-          <div>
-            <h3 className="text-lg font-medium mb-2">คุณสมบัติที่เลือก</h3>
-            {features.length > 0 ? (
-              <div className="bg-orange-950 rounded-lg p-3 border border-orange-700 space-y-2">
-                {features.map(feature => (
-                  <div key={feature.id} className="flex justify-between">
-                    <p>{feature.name}</p>
-                    <p className="text-amber-300">+฿{(feature.price * 30).toFixed(2)}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="text-amber-400/70">ไม่มีคุณสมบัติเพิ่มเติมที่เลือก</p>
-            )}
-          </div>
-          
           <Separator className="my-4 bg-orange-700" />
           
           <div className="flex justify-between items-center">
