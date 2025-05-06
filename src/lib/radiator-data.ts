@@ -1,3 +1,4 @@
+
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -13,6 +14,13 @@ export const materials: Material[] = [
     name: 'ทองแดง',
     description: 'การนำความร้อนที่เหนือกว่า ให้การระบายความร้อนที่ดีที่สุดสำหรับการใช้งานแบบสมรรถนะสูง',
     pricePerSquareInch: 0.8,
+    image: '/placeholder.svg'
+  },
+  {
+    id: 'brass',
+    name: 'ทองเหลือง',
+    description: 'ต้านทานการกัดกร่อนได้ดีเยี่ยมและมีความสามารถในการถ่ายเทความร้อนที่ดี เหมาะสำหรับสภาพแวดล้อมที่รุนแรง',
+    pricePerSquareInch: 0.7,
     image: '/placeholder.svg'
   }
 ];
