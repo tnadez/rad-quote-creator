@@ -16,10 +16,10 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
   };
 
   return (
-    <Card className="w-full border border-gray-200 bg-white text-gray-800 shadow-sm">
+    <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-xl font-medium text-gray-700">คุณสมบัติเพิ่มเติม</CardTitle>
-        <CardDescription className="text-gray-500">
+        <CardTitle className="text-2xl font-bold text-amber-300">คุณสมบัติเพิ่มเติม</CardTitle>
+        <CardDescription className="text-amber-100">
           ปรับแต่งหม้อน้ำของคุณด้วยอุปกรณ์เสริมระดับพรีเมียม
         </CardDescription>
       </CardHeader>
@@ -28,10 +28,10 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
           {features.map((feature) => (
             <div 
               key={feature.id} 
-              className={`radiator-option flex items-start p-4 rounded-md border cursor-pointer ${
+              className={`radiator-option flex items-start p-4 rounded-lg border-2 cursor-pointer ${
                 isSelected(feature.id) 
-                  ? "border-amber-300 bg-amber-50" 
-                  : "border-gray-200 bg-gray-50 hover:border-gray-300"
+                  ? "border-amber-500 bg-amber-900/60" 
+                  : "border-orange-700 bg-orange-950 hover:border-orange-500"
               }`}
               onClick={() => onToggleFeature(feature)}
             >
@@ -40,22 +40,22 @@ const FeaturesSelector = ({ features, selectedFeatures, onToggleFeature }: Featu
                   id={feature.id} 
                   checked={isSelected(feature.id)}
                   onCheckedChange={() => onToggleFeature(feature)}
-                  className="data-[state=checked]:bg-amber-400 data-[state=checked]:text-white"
+                  className="data-[state=checked]:bg-amber-500 data-[state=checked]:text-primary-foreground"
                 />
               </div>
               <div className="flex-1">
                 <div className="flex flex-col sm:flex-row sm:justify-between">
                   <Label 
                     htmlFor={feature.id} 
-                    className="font-medium text-gray-700 cursor-pointer"
+                    className="font-medium text-white cursor-pointer"
                   >
                     {feature.name}
                   </Label>
-                  <span className="text-lg font-medium text-amber-600">
+                  <span className="text-lg font-semibold text-amber-300">
                     +฿{(feature.price * 30).toFixed(2)}
                   </span>
                 </div>
-                <p className="mt-1 text-sm text-gray-500">{feature.description}</p>
+                <p className="mt-1 text-sm text-amber-200">{feature.description}</p>
               </div>
             </div>
           ))}
