@@ -1,4 +1,3 @@
-
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -7,14 +6,14 @@ export const materials: Material[] = [
     name: 'อะลูมิเนียม',
     description: 'น้ำหนักเบาและมีคุณสมบัติในการกระจายความร้อนที่ยอดเยี่ยม เหมาะสำหรับการใช้งานทั่วไป',
     pricePerSquareInch: 0.5,
-    image: '/placeholder.svg'
+    image: '/images/aluminum-radiator.jpg'
   },
   {
     id: 'copper',
     name: 'ทองแดง',
     description: 'การนำความร้อนที่เหนือกว่า ให้การระบายความร้อนที่ดีที่สุดสำหรับการใช้งานแบบสมรรถนะสูง',
     pricePerSquareInch: 0.8,
-    image: '/placeholder.svg'
+    image: '/images/copper-radiator.jpg'
   },
   {
     id: 'brass',
@@ -66,28 +65,28 @@ export const additionalFeatures: AdditionalFeature[] = [
     name: 'พัดลมระบายความร้อนแรงดันสูง',
     description: 'เพิ่มการไหลของอากาศผ่านหม้อน้ำเพื่อประสิทธิภาพการระบายความร้อนที่ดีขึ้น',
     price: 85,
-    image: '/placeholder.svg'
+    image: '/images/cooling-fan.jpg'
   },
   {
     id: 'shroud',
     name: 'ฝาครอบพัดลมแบบกำหนดเอง',
     description: 'นำทางการไหลของอากาศเพื่อประสิทธิภาพการระบายความร้อนสูงสุดและสมรรถนะที่ดีที่สุด',
     price: 65,
-    image: '/placeholder.svg'
+    image: '/images/fan-shroud.jpg'
   },
   {
     id: 'cap',
     name: 'ฝาหม้อน้ำแรงดันสูง',
     description: 'เพิ่มแรงดันระบบช่วยให้น้ำหล่อเย็นทนอุณหภูมิสูงโดยไม่เดือด',
     price: 25,
-    image: '/placeholder.svg'
+    image: '/images/radiator-cap.jpg'
   },
   {
     id: 'coating',
     name: 'เคลือบเซรามิก',
     description: 'เพิ่มการป้องกันความร้อนและการตกแต่งที่สวยงามให้กับชิ้นส่วนภายนอกของหม้อน้ำ',
     price: 110,
-    image: '/placeholder.svg'
+    image: '/images/ceramic-coating.jpg'
   }
 ];
 

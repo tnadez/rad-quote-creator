@@ -23,6 +23,14 @@ const SizeSelector = ({
   const [customHeight, setCustomHeight] = useState<number>(16);
   const [customThickness, setCustomThickness] = useState<number>(2.5);
 
+  // Size images mappings for examples
+  const sizeImages = {
+    'small': '/images/small-radiator.jpg',
+    'medium': '/images/medium-radiator.jpg',
+    'large': '/images/large-radiator.jpg',
+    'custom': '/images/custom-radiator.jpg'
+  };
+
   useEffect(() => {
     if (selectedSize?.id === 'custom') {
       onUpdateCustomSize(customWidth, customHeight, customThickness);
@@ -86,6 +94,13 @@ const SizeSelector = ({
                       : "border-orange-700 bg-orange-950 hover:border-orange-500"
                   }`}
                 >
+                  <div className="w-full h-32 mb-3 rounded overflow-hidden bg-orange-800">
+                    <img 
+                      src={sizeImages[size.id as keyof typeof sizeImages] || '/placeholder.svg'} 
+                      alt={`${size.name} radiator example`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
                   <h3 className="text-xl font-medium text-white">{size.name}</h3>
                   <div className="mt-2 space-y-1 text-amber-200">
                     <p>กว้าง: {size.width} นิ้ว</p>
@@ -114,6 +129,13 @@ const SizeSelector = ({
                     : "border-orange-700 bg-orange-950 hover:border-orange-500"
                 }`}
               >
+                <div className="w-full h-32 mb-3 rounded overflow-hidden bg-orange-800">
+                  <img 
+                    src={sizeImages.custom}
+                    alt="Custom size radiator example"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
                 <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
                 <p className="text-sm text-amber-200 mb-2">กำหนดขนาดของคุณเอง</p>
                 
