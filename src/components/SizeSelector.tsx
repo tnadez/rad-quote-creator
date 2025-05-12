@@ -5,6 +5,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadiatorSize } from '@/lib/types';
+import { calculateCustomBasePrice } from '@/lib/radiator-data';
 
 interface SizeSelectorProps {
   sizes: RadiatorSize[];
@@ -22,6 +23,7 @@ const SizeSelector = ({
   const [customWidth, setCustomWidth] = useState<number>(24);
   const [customHeight, setCustomHeight] = useState<number>(16);
   const [customThickness, setCustomThickness] = useState<number>(2.5);
+  const [customBasePrice, setCustomBasePrice] = useState<number>(0);
 
   // Size images mappings for examples
   const sizeImages = {
@@ -34,6 +36,8 @@ const SizeSelector = ({
   useEffect(() => {
     if (selectedSize?.id === 'custom') {
       onUpdateCustomSize(customWidth, customHeight, customThickness);
+      const newBasePrice = calculateCustomBasePrice(customWidth, customHeight, customThickness);
+      setCustomBasePrice(newBasePrice);
     }
   }, [customWidth, customHeight, customThickness, selectedSize, onUpdateCustomSize]);
 
@@ -54,6 +58,8 @@ const SizeSelector = ({
       const updatedThickness = dimension === 'thickness' ? numValue : customThickness;
       
       onUpdateCustomSize(updatedWidth, updatedHeight, updatedThickness);
+      const newBasePrice = calculateCustomBasePrice(updatedWidth, updatedHeight, updatedThickness);
+      setCustomBasePrice(newBasePrice);
     }
   };
 
@@ -74,6 +80,8 @@ const SizeSelector = ({
               onSelectSize(size);
               if (size.id === 'custom') {
                 onUpdateCustomSize(customWidth, customHeight, customThickness);
+                const newBasePrice = calculateCustomBasePrice(customWidth, customHeight, customThickness);
+                setCustomBasePrice(newBasePrice);
               }
             }
           }}
@@ -182,7 +190,7 @@ const SizeSelector = ({
                   </div>
                 </div>
                 <p className="mt-3 text-sm text-amber-200">
-                  การกำหนดขนาดเองมีค่าธรรมเนียมพื้นฐาน ฿4,500 + ค่าวัสดุ
+                  ราคาพื้นฐาน: ฿{(customBasePrice * 30).toFixed(2)} (คำนวณตามขนาด)
                 </p>
               </Label>
             </div>

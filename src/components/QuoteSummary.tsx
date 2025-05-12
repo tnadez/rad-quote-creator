@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { calculateCustomBasePrice } from "@/lib/radiator-data";
 
 interface QuoteSummaryProps {
   material: Material | null;
@@ -39,6 +40,14 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
   };
   
   const canRequestQuote = material && size;
+  
+  // Calculate custom base price for display
+  const getCustomBasePrice = () => {
+    if (size && size.id === 'custom') {
+      return calculateCustomBasePrice(size.width, size.height, size.thickness);
+    }
+    return 0;
+  };
   
   return (
     <>
@@ -76,7 +85,11 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
                   {size.width > 0 && <p>กว้าง: {size.width} นิ้ว</p>}
                   {size.height > 0 && <p>สูง: {size.height} นิ้ว</p>}
                   {size.thickness > 0 && <p>หนา: {size.thickness} นิ้ว</p>}
-                  {size.id === 'custom' && <p className="mt-2 text-amber-300">ค่าธรรมเนียมพื้นฐาน: ฿4,500.00</p>}
+                  {size.id === 'custom' && (
+                    <p className="mt-2 text-amber-300">
+                      ราคาพื้นฐาน: ฿{(getCustomBasePrice() * 30).toFixed(2)} (คำนวณตามขนาด)
+                    </p>
+                  )}
                 </div>
               </div>
             ) : (

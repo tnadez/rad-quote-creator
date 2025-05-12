@@ -1,3 +1,4 @@
+
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -83,6 +84,30 @@ export const additionalFeatures: AdditionalFeature[] = [
   }
 ];
 
+// This function calculates the base price for custom radiators based on dimensions
+export const calculateCustomBasePrice = (width: number, height: number, thickness: number): number => {
+  // Calculate area in square inches
+  const area = width * height;
+  
+  // Base calculation: area impacts price the most
+  let basePrice = area * 0.15;
+  
+  // Thickness factor: thicker radiators cost more (exponential relationship)
+  const thicknessFactor = Math.pow(thickness, 1.5);
+  
+  // Complexity factor: larger and thicker radiators are more complex to build
+  const complexityFactor = Math.sqrt(area) * thicknessFactor * 0.2;
+  
+  // Minimum price threshold for small radiators
+  const minBasePrice = 100;
+  
+  // Final price calculation with minimum threshold
+  const finalBasePrice = Math.max(basePrice + complexityFactor, minBasePrice);
+  
+  // Round to 2 decimal places
+  return Math.round(finalBasePrice * 100) / 100;
+};
+
 export const calculateTotalPrice = (
   material: Material | null, 
   size: RadiatorSize | null, 
@@ -102,7 +127,8 @@ export const calculateTotalPrice = (
     // For custom sizes
     const area = size.width * size.height;
     const materialCost = area * material.pricePerSquareInch;
-    basePrice = materialCost + 150; // Base custom fee
+    const customBasePrice = calculateCustomBasePrice(size.width, size.height, size.thickness);
+    basePrice = materialCost + customBasePrice;
   }
   
   // Add feature costs
