@@ -17,38 +17,15 @@ export const materials: Material[] = [
   }
 ];
 
+// Only keeping custom size option
 export const sizes: RadiatorSize[] = [
-  {
-    id: 'small',
-    name: 'เล็ก (มาตรฐาน)',
-    width: 18,
-    height: 12,
-    thickness: 2,
-    price: 120
-  },
-  {
-    id: 'medium',
-    name: 'กลาง (สมรรถนะสูง)',
-    width: 24,
-    height: 16,
-    thickness: 2.5,
-    price: 180
-  },
-  {
-    id: 'large',
-    name: 'ใหญ่ (แข่งขัน)',
-    width: 30,
-    height: 18,
-    thickness: 3,
-    price: 250
-  },
   {
     id: 'custom',
     name: 'ขนาดกำหนดเอง',
-    width: 0,
-    height: 0,
-    thickness: 0,
-    price: 0
+    width: 24,
+    height: 16,
+    thickness: 2.5,
+    price: 0 // Base price will be calculated dynamically
   }
 ];
 
@@ -83,6 +60,25 @@ export const additionalFeatures: AdditionalFeature[] = [
   }
 ];
 
+// Calculate dynamic base price based on dimensions
+const calculateBasePriceFromDimensions = (width: number, height: number, thickness: number): number => {
+  // Base formula for calculating price based on dimensions
+  const area = width * height;
+  const volumeFactor = thickness / 2;
+  
+  // Base price scaling factors
+  const basePrice = 50; // Starting price
+  const areaPriceFactor = 0.15; // Price per square inch
+  const thicknessPriceFactor = 15; // Price factor for thickness
+  
+  // Calculate components of the price
+  const areaPrice = area * areaPriceFactor;
+  const thicknessPrice = volumeFactor * thicknessPriceFactor;
+  
+  // Return the calculated base price (rounded to 2 decimal places)
+  return Math.round((basePrice + areaPrice + thicknessPrice) * 100) / 100;
+};
+
 export const calculateTotalPrice = (
   material: Material | null, 
   size: RadiatorSize | null, 
@@ -90,20 +86,15 @@ export const calculateTotalPrice = (
 ): number => {
   if (!material || !size) return 0;
   
-  let basePrice = 0;
+  // Calculate area and material cost
+  const area = size.width * size.height;
+  const materialCost = area * material.pricePerSquareInch;
   
-  // Calculate material cost
-  if (size.id !== 'custom') {
-    // For standard sizes
-    const area = size.width * size.height;
-    const materialCost = area * material.pricePerSquareInch;
-    basePrice = size.price + materialCost;
-  } else {
-    // For custom sizes
-    const area = size.width * size.height;
-    const materialCost = area * material.pricePerSquareInch;
-    basePrice = materialCost + 150; // Base custom fee
-  }
+  // Calculate dynamic base price based on dimensions
+  const basePriceFee = calculateBasePriceFromDimensions(size.width, size.height, size.thickness);
+  
+  // Calculate total price
+  const basePrice = materialCost + basePriceFee;
   
   // Add feature costs
   const featuresTotal = features.reduce((sum, feature) => sum + feature.price, 0);

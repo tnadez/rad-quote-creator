@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadiatorSize } from '@/lib/types';
@@ -23,16 +22,22 @@ const SizeSelector = ({
   const [customHeight, setCustomHeight] = useState<number>(16);
   const [customThickness, setCustomThickness] = useState<number>(2.5);
 
-  // Size images mappings for examples
-  const sizeImages = {
-    'small': '/images/small-radiator.jpg',
-    'medium': '/images/medium-radiator.jpg',
-    'large': '/images/large-radiator.jpg',
-    'custom': '/images/custom-radiator.jpg'
-  };
-
+  // Auto-select the custom size on component mount
   useEffect(() => {
-    if (selectedSize?.id === 'custom') {
+    if (sizes.length > 0 && !selectedSize) {
+      const customSize = sizes[0];
+      onSelectSize({
+        ...customSize,
+        width: customWidth,
+        height: customHeight,
+        thickness: customThickness
+      });
+    }
+  }, [sizes, selectedSize, onSelectSize, customWidth, customHeight, customThickness]);
+
+  // Update custom size when dimensions change
+  useEffect(() => {
+    if (selectedSize) {
       onUpdateCustomSize(customWidth, customHeight, customThickness);
     }
   }, [customWidth, customHeight, customThickness, selectedSize, onUpdateCustomSize]);
@@ -48,7 +53,7 @@ const SizeSelector = ({
       setCustomThickness(numValue);
     }
     
-    if (selectedSize?.id === 'custom') {
+    if (selectedSize) {
       const updatedWidth = dimension === 'width' ? numValue : customWidth;
       const updatedHeight = dimension === 'height' ? numValue : customHeight;
       const updatedThickness = dimension === 'thickness' ? numValue : customThickness;
@@ -60,134 +65,76 @@ const SizeSelector = ({
   return (
     <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl">
       <CardHeader>
-        <CardTitle className="text-2xl font-bold text-amber-300">เลือกขนาด</CardTitle>
+        <CardTitle className="text-2xl font-bold text-amber-300">กำหนดขนาด</CardTitle>
         <CardDescription className="text-amber-100">
-          เลือกขนาดสำหรับหม้อน้ำของคุณ
+          กำหนดขนาดหม้อน้ำตามความต้องการของคุณ
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <RadioGroup 
-          value={selectedSize?.id || ""} 
-          onValueChange={(value) => {
-            const size = sizes.find(s => s.id === value);
-            if (size) {
-              onSelectSize(size);
-              if (size.id === 'custom') {
-                onUpdateCustomSize(customWidth, customHeight, customThickness);
-              }
-            }
-          }}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            {sizes.filter(s => s.id !== 'custom').map((size) => (
-              <div key={size.id} className="relative">
-                <RadioGroupItem
-                  value={size.id}
-                  id={size.id}
-                  className="sr-only"
-                />
-                <Label
-                  htmlFor={size.id}
-                  className={`radiator-option flex flex-col p-4 rounded-lg border-2 cursor-pointer ${
-                    selectedSize?.id === size.id 
-                      ? "border-amber-500 bg-amber-900/60" 
-                      : "border-orange-700 bg-orange-950 hover:border-orange-500"
-                  }`}
-                >
-                  <div className="w-full h-32 mb-3 rounded overflow-hidden bg-orange-800">
-                    <img 
-                      src={sizeImages[size.id as keyof typeof sizeImages] || '/placeholder.svg'} 
-                      alt={`${size.name} radiator example`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <h3 className="text-xl font-medium text-white">{size.name}</h3>
-                  <div className="mt-2 space-y-1 text-amber-200">
-                    <p>กว้าง: {size.width} นิ้ว</p>
-                    <p>สูง: {size.height} นิ้ว</p>
-                    <p>หนา: {size.thickness} นิ้ว</p>
-                  </div>
-                  <p className="mt-3 text-lg font-semibold text-amber-300">
-                    ราคาพื้นฐาน: ฿{(size.price * 30).toFixed(2)}
-                  </p>
-                </Label>
-              </div>
-            ))}
-            
-            {/* Custom Size Option */}
-            <div className="relative">
-              <RadioGroupItem
-                value="custom"
-                id="custom"
-                className="sr-only"
-              />
-              <Label
-                htmlFor="custom"
-                className={`radiator-option flex flex-col p-4 rounded-lg border-2 cursor-pointer ${
-                  selectedSize?.id === 'custom' 
-                    ? "border-amber-500 bg-amber-900/60" 
-                    : "border-orange-700 bg-orange-950 hover:border-orange-500"
-                }`}
-              >
-                <div className="w-full h-32 mb-3 rounded overflow-hidden bg-orange-800">
+        <div className="space-y-6">
+          <div className="relative">
+            <div className="w-full p-4 rounded-lg border-2 border-amber-500 bg-amber-900/60">
+              <div className="flex flex-col md:flex-row gap-4 items-start">
+                <div className="w-full md:w-1/3 h-48 rounded overflow-hidden bg-orange-800 mb-4 md:mb-0">
                   <img 
-                    src={sizeImages.custom}
+                    src="/images/custom-radiator.jpg"
                     alt="Custom size radiator example"
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
-                <p className="text-sm text-amber-200 mb-2">กำหนดขนาดของคุณเอง</p>
                 
-                <div className="grid grid-cols-3 gap-2 mt-2">
-                  <div>
-                    <Label htmlFor="width" className="text-sm text-amber-200">กว้าง (นิ้ว)</Label>
-                    <Input 
-                      id="width"
-                      type="number"
-                      min="8"
-                      max="48"
-                      value={customWidth}
-                      onChange={(e) => handleCustomSizeChange('width', e.target.value)}
-                      disabled={selectedSize?.id !== 'custom'}
-                      className="bg-orange-800 text-white border-orange-600"
-                    />
+                <div className="w-full md:w-2/3 space-y-4">
+                  <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
+                  <p className="text-sm text-amber-200 mb-2">กำหนดขนาดของคุณเพื่อให้ได้หม้อน้ำที่เหมาะสำหรับรถของคุณโดยเฉพาะ</p>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                      <Label htmlFor="width" className="text-sm text-amber-200">กว้าง (นิ้ว)</Label>
+                      <Input 
+                        id="width"
+                        type="number"
+                        min="8"
+                        max="48"
+                        value={customWidth}
+                        onChange={(e) => handleCustomSizeChange('width', e.target.value)}
+                        className="bg-orange-800 text-white border-orange-600"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="height" className="text-sm text-amber-200">สูง (นิ้ว)</Label>
+                      <Input 
+                        id="height"
+                        type="number"
+                        min="8"
+                        max="36"
+                        value={customHeight}
+                        onChange={(e) => handleCustomSizeChange('height', e.target.value)}
+                        className="bg-orange-800 text-white border-orange-600"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="thickness" className="text-sm text-amber-200">หนา (นิ้ว)</Label>
+                      <Input 
+                        id="thickness"
+                        type="number"
+                        min="1"
+                        max="5"
+                        step="0.5"
+                        value={customThickness}
+                        onChange={(e) => handleCustomSizeChange('thickness', e.target.value)}
+                        className="bg-orange-800 text-white border-orange-600"
+                      />
+                    </div>
                   </div>
-                  <div>
-                    <Label htmlFor="height" className="text-sm text-amber-200">สูง (นิ้ว)</Label>
-                    <Input 
-                      id="height"
-                      type="number"
-                      min="8"
-                      max="36"
-                      value={customHeight}
-                      onChange={(e) => handleCustomSizeChange('height', e.target.value)}
-                      disabled={selectedSize?.id !== 'custom'}
-                      className="bg-orange-800 text-white border-orange-600"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="thickness" className="text-sm text-amber-200">หนา (นิ้ว)</Label>
-                    <Input 
-                      id="thickness"
-                      type="number"
-                      min="1"
-                      max="5"
-                      step="0.5"
-                      value={customThickness}
-                      onChange={(e) => handleCustomSizeChange('thickness', e.target.value)}
-                      disabled={selectedSize?.id !== 'custom'}
-                      className="bg-orange-800 text-white border-orange-600"
-                    />
-                  </div>
+                  
+                  <p className="text-sm text-amber-200">
+                    ราคาพื้นฐานคำนวณจากขนาดของหม้อน้ำ ระบบจะคำนวณราคาให้โดยอัตโนมัติ
+                  </p>
                 </div>
-                <p className="mt-3 text-sm text-amber-200">
-                  การกำหนดขนาดเองมีค่าธรรมเนียมพื้นฐาน ฿4,500 + ค่าวัสดุ
-                </p>
-              </Label>
+              </div>
             </div>
           </div>
-        </RadioGroup>
+        </div>
       </CardContent>
     </Card>
   );

@@ -15,9 +15,16 @@ const Index = () => {
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
+  // Auto-select the first size (custom) when component mounts
+  useEffect(() => {
+    if (sizes.length > 0 && !selectedSize) {
+      setSelectedSize({ ...sizes[0] });
+    }
+  }, []);
+
   // Handle custom size updates
   const handleCustomSizeUpdate = (width: number, height: number, thickness: number) => {
-    if (selectedSize && selectedSize.id === 'custom') {
+    if (selectedSize) {
       const updatedSize: RadiatorSize = {
         ...selectedSize,
         width,
