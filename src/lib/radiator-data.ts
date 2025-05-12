@@ -1,3 +1,4 @@
+
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -17,7 +18,6 @@ export const materials: Material[] = [
   }
 ];
 
-// Keep standard sizes for display, but only custom will be functional
 export const sizes: RadiatorSize[] = [
   {
     id: 'small',
@@ -46,9 +46,9 @@ export const sizes: RadiatorSize[] = [
   {
     id: 'custom',
     name: 'ขนาดกำหนดเอง',
-    width: 24,
-    height: 16,
-    thickness: 2.5,
+    width: 0,
+    height: 0,
+    thickness: 0,
     price: 0
   }
 ];
@@ -84,31 +84,6 @@ export const additionalFeatures: AdditionalFeature[] = [
   }
 ];
 
-// Calculate base price based on radiator dimensions
-export const calculateBasePrice = (width: number, height: number, thickness: number): number => {
-  // Base calculation factors
-  const areaCm = width * height;
-  const volumeFactor = thickness * 0.8;
-  
-  // Price tiers based on size
-  let basePrice = 0;
-  
-  if (areaCm <= 200) {
-    basePrice = 60;
-  } else if (areaCm <= 350) {
-    basePrice = 90;
-  } else if (areaCm <= 500) {
-    basePrice = 130;
-  } else {
-    basePrice = 160;
-  }
-  
-  // Apply thickness multiplier
-  basePrice = basePrice * volumeFactor;
-  
-  return Math.round(basePrice);
-};
-
 export const calculateTotalPrice = (
   material: Material | null, 
   size: RadiatorSize | null, 
@@ -119,14 +94,17 @@ export const calculateTotalPrice = (
   let basePrice = 0;
   
   // Calculate material cost
-  const area = size.width * size.height;
-  const materialCost = area * material.pricePerSquareInch;
-  
-  // Calculate base price using the new function
-  basePrice = calculateBasePrice(size.width, size.height, size.thickness);
-  
-  // Add material cost
-  basePrice += materialCost;
+  if (size.id !== 'custom') {
+    // For standard sizes
+    const area = size.width * size.height;
+    const materialCost = area * material.pricePerSquareInch;
+    basePrice = size.price + materialCost;
+  } else {
+    // For custom sizes
+    const area = size.width * size.height;
+    const materialCost = area * material.pricePerSquareInch;
+    basePrice = materialCost + 100; // Reduced custom fee from 150 to 100
+  }
   
   // Add feature costs
   const featuresTotal = features.reduce((sum, feature) => sum + feature.price, 0);

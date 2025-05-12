@@ -9,7 +9,6 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { calculateBasePrice } from "@/lib/radiator-data";
 
 interface QuoteSummaryProps {
   material: Material | null;
@@ -26,6 +25,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
   const [message, setMessage] = useState('');
   
   const handleRequestQuote = () => {
+    // In a real application, we would send this data to the server
     toast.success("ส่งคำขอใบเสนอราคาเรียบร้อย!", {
       description: "เราจะติดต่อกลับเร็วๆ นี้พร้อมใบเสนอราคาหม้อน้ำแบบกำหนดเองของคุณ"
     });
@@ -39,7 +39,6 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
   };
   
   const canRequestQuote = material && size;
-  const basePrice = size ? calculateBasePrice(size.width, size.height, size.thickness) : 0;
   
   return (
     <>
@@ -70,13 +69,14 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
             {size ? (
               <div className="bg-orange-950 rounded-lg p-3 border border-orange-700">
                 <div className="flex justify-between mb-1">
-                  <p className="font-medium">ขนาดกำหนดเอง</p>
-                  <p className="text-amber-300">฿{basePrice.toFixed(2)}</p>
+                  <p className="font-medium">{size.name}</p>
+                  {size.id !== 'custom' && <p className="text-amber-300">฿{size.price.toFixed(2)}</p>}
                 </div>
                 <div className="text-sm text-amber-200 space-y-1">
                   {size.width > 0 && <p>กว้าง: {size.width} นิ้ว</p>}
                   {size.height > 0 && <p>สูง: {size.height} นิ้ว</p>}
                   {size.thickness > 0 && <p>หนา: {size.thickness} นิ้ว</p>}
+                  {size.id === 'custom' && <p className="mt-2 text-amber-300">ค่าธรรมเนียมพื้นฐาน: ฿3,000.00</p>}
                 </div>
               </div>
             ) : (
