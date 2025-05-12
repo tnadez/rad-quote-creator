@@ -40,18 +40,6 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
   
   const canRequestQuote = material && size;
   
-  // Calculate material cost for display
-  const calculateMaterialCost = () => {
-    if (!material || !size) return 0;
-    return material.pricePerSquareInch * size.width * size.height;
-  };
-  
-  // Calculate dynamic base price (without material cost)
-  const getBasePriceDisplay = () => {
-    if (!size) return 0;
-    return totalPrice - calculateMaterialCost();
-  };
-  
   return (
     <>
       <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl animate-fadeIn">
@@ -68,7 +56,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
               <div className="bg-orange-950 rounded-lg p-3 border border-orange-700">
                 <div className="flex justify-between">
                   <p className="font-medium">{material.name}</p>
-                  <p className="text-amber-300">฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว</p>
+                  <p className="text-amber-300">฿{material.pricePerSquareInch.toFixed(2)}/ตร.นิ้ว</p>
                 </div>
               </div>
             ) : (
@@ -77,25 +65,22 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
           </div>
           
           <div>
-            <h3 className="text-lg font-medium mb-2">ขนาดที่กำหนด</h3>
+            <h3 className="text-lg font-medium mb-2">ขนาดที่เลือก</h3>
             {size ? (
               <div className="bg-orange-950 rounded-lg p-3 border border-orange-700">
+                <div className="flex justify-between mb-1">
+                  <p className="font-medium">{size.name}</p>
+                  {size.id !== 'custom' && <p className="text-amber-300">฿{size.price.toFixed(2)}</p>}
+                </div>
                 <div className="text-sm text-amber-200 space-y-1">
                   {size.width > 0 && <p>กว้าง: {size.width} นิ้ว</p>}
                   {size.height > 0 && <p>สูง: {size.height} นิ้ว</p>}
                   {size.thickness > 0 && <p>หนา: {size.thickness} นิ้ว</p>}
-                </div>
-                <div className="mt-2 flex justify-between">
-                  <p>ค่าวัสดุ</p>
-                  <p className="text-amber-300">฿{(calculateMaterialCost() * 30).toFixed(2)}</p>
-                </div>
-                <div className="mt-1 flex justify-between">
-                  <p>ค่าผลิตพื้นฐาน</p>
-                  <p className="text-amber-300">฿{(getBasePriceDisplay() * 30).toFixed(2)}</p>
+                  {size.id === 'custom' && <p className="mt-2 text-amber-300">ค่าธรรมเนียมพื้นฐาน: ฿3,000.00</p>}
                 </div>
               </div>
             ) : (
-              <p className="text-amber-400/70">ยังไม่ได้กำหนดขนาด</p>
+              <p className="text-amber-400/70">ยังไม่ได้เลือกขนาด</p>
             )}
           </div>
           
@@ -103,7 +88,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
           
           <div className="flex justify-between items-center">
             <h3 className="text-xl font-medium">ราคาประมาณ</h3>
-            <p className="text-2xl font-bold text-amber-300">฿{(totalPrice * 30).toFixed(2)}</p>
+            <p className="text-2xl font-bold text-amber-300">฿{totalPrice.toFixed(2)}</p>
           </div>
         </CardContent>
         <CardFooter>
