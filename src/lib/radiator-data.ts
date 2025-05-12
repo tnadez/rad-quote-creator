@@ -1,4 +1,3 @@
-
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -6,14 +5,14 @@ export const materials: Material[] = [
     id: 'copper',
     name: 'ทองแดง',
     description: 'การนำความร้อนที่เหนือกว่า ให้การระบายความร้อนที่ดีที่สุดสำหรับการใช้งานแบบสมรรถนะสูง',
-    pricePerSquareInch: 15,
+    pricePerSquareInch: 0.8,
     image: '/images/copper-radiator.jpg'
   },
   {
     id: 'brass',
     name: 'ทองเหลือง',
     description: 'ทนทานและสวยงาม เหมาะกับการใช้งานทั่วไปและให้ความสวยงามแบบคลาสสิก',
-    pricePerSquareInch: 10,
+    pricePerSquareInch: 0.65,
     image: '/images/brass-radiator.jpg'
   }
 ];
@@ -25,7 +24,7 @@ export const sizes: RadiatorSize[] = [
     width: 18,
     height: 12,
     thickness: 2,
-    price: 80
+    price: 120
   },
   {
     id: 'medium',
@@ -33,7 +32,7 @@ export const sizes: RadiatorSize[] = [
     width: 24,
     height: 16,
     thickness: 2.5,
-    price: 120
+    price: 180
   },
   {
     id: 'large',
@@ -41,7 +40,7 @@ export const sizes: RadiatorSize[] = [
     width: 30,
     height: 18,
     thickness: 3,
-    price: 180
+    price: 250
   },
   {
     id: 'custom',
@@ -103,7 +102,7 @@ export const calculateTotalPrice = (
     // For custom sizes
     const area = size.width * size.height;
     const materialCost = area * material.pricePerSquareInch;
-    basePrice = materialCost + 100; // Reduced custom fee from 150 to 100
+    basePrice = materialCost + 150; // Base custom fee
   }
   
   // Add feature costs
