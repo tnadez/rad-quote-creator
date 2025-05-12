@@ -56,7 +56,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
               <div className="bg-orange-950 rounded-lg p-3 border border-orange-700">
                 <div className="flex justify-between">
                   <p className="font-medium">{material.name}</p>
-                  <p className="text-amber-300">฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว</p>
+                  <p className="text-amber-300">฿{material.pricePerSquareInch.toFixed(2)}/ตร.นิ้ว</p>
                 </div>
               </div>
             ) : (
@@ -70,13 +70,13 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
               <div className="bg-orange-950 rounded-lg p-3 border border-orange-700">
                 <div className="flex justify-between mb-1">
                   <p className="font-medium">{size.name}</p>
-                  {size.id !== 'custom' && <p className="text-amber-300">฿{(size.price * 30).toFixed(2)}</p>}
+                  {size.id !== 'custom' && <p className="text-amber-300">฿{size.price.toFixed(2)}</p>}
                 </div>
                 <div className="text-sm text-amber-200 space-y-1">
                   {size.width > 0 && <p>กว้าง: {size.width} นิ้ว</p>}
                   {size.height > 0 && <p>สูง: {size.height} นิ้ว</p>}
                   {size.thickness > 0 && <p>หนา: {size.thickness} นิ้ว</p>}
-                  {size.id === 'custom' && <p className="mt-2 text-amber-300">ค่าธรรมเนียมพื้นฐาน: ฿4,500.00</p>}
+                  {size.id === 'custom' && <p className="mt-2 text-amber-300">ค่าธรรมเนียมพื้นฐาน: ฿3,000.00</p>}
                 </div>
               </div>
             ) : (
@@ -88,7 +88,7 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
           
           <div className="flex justify-between items-center">
             <h3 className="text-xl font-medium">ราคาประมาณ</h3>
-            <p className="text-2xl font-bold text-amber-300">฿{(totalPrice * 30).toFixed(2)}</p>
+            <p className="text-2xl font-bold text-amber-300">฿{totalPrice.toFixed(2)}</p>
           </div>
         </CardContent>
         <CardFooter>
