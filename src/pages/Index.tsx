@@ -17,7 +17,7 @@ const Index = () => {
 
   // Handle custom size updates
   const handleCustomSizeUpdate = (width: number, height: number, thickness: number) => {
-    if (selectedSize && selectedSize.id === 'custom') {
+    if (selectedSize) {
       const updatedSize: RadiatorSize = {
         ...selectedSize,
         width,
