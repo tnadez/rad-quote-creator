@@ -10,25 +10,25 @@ interface MarketPrice {
   updated: string;
 }
 
-// This is a mock API function; in a real application, you would fetch from a real metals price API
-const fetchMetalPrices = async (): Promise<MarketPrice[]> => {
-  // Simulate API call with realistic but mock data
+// This is a mock API function that simulates fetching from Thai metal price API
+const fetchThaiMetalPrices = async (): Promise<MarketPrice[]> => {
+  // Simulate API call with Thai market data
   return new Promise((resolve) => {
     setTimeout(() => {
       const now = new Date();
       resolve([
         {
           metal: 'copper',
-          price: 4.32, // USD per pound
-          currency: 'USD',
-          change: 0.05,
+          price: 129.50, // THB per kg
+          currency: 'THB',
+          change: 1.50,
           updated: now.toISOString()
         },
         {
           metal: 'brass',
-          price: 3.18, // USD per pound
-          currency: 'USD',
-          change: -0.02,
+          price: 95.25, // THB per kg
+          currency: 'THB',
+          change: -0.75,
           updated: now.toISOString()
         }
       ]);
@@ -36,10 +36,10 @@ const fetchMetalPrices = async (): Promise<MarketPrice[]> => {
   });
 };
 
-// Helper to convert USD price to THB (using an approximate exchange rate)
-const convertToTHB = (usdPrice: number): number => {
-  const exchangeRate = 30; // Approximate THB to USD exchange rate
-  return usdPrice * exchangeRate;
+// Helper to convert kg to pound for reference
+const convertToPound = (kgPrice: number): number => {
+  const kgToPoundRatio = 2.20462; // 1 kg = 2.20462 pounds
+  return kgPrice / kgToPoundRatio;
 };
 
 const MarketPrices = () => {
@@ -47,21 +47,21 @@ const MarketPrices = () => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
-    const getMetalPrices = async () => {
+    const getThaiMetalPrices = async () => {
       try {
-        const data = await fetchMetalPrices();
+        const data = await fetchThaiMetalPrices();
         setPrices(data);
       } catch (error) {
-        console.error("Error fetching metal prices:", error);
+        console.error("Error fetching Thai metal prices:", error);
       } finally {
         setLoading(false);
       }
     };
     
-    getMetalPrices();
+    getThaiMetalPrices();
     
     // Refresh prices every 5 minutes
-    const intervalId = setInterval(getMetalPrices, 5 * 60 * 1000);
+    const intervalId = setInterval(getThaiMetalPrices, 5 * 60 * 1000);
     
     return () => clearInterval(intervalId);
   }, []);
@@ -79,7 +79,7 @@ const MarketPrices = () => {
   return (
     <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl mb-4">
       <CardHeader>
-        <CardTitle className="text-xl font-bold text-amber-300">ราคาตลาดโลหะล่าสุด</CardTitle>
+        <CardTitle className="text-xl font-bold text-amber-300">ราคาตลาดโลหะในประเทศไทย</CardTitle>
         <CardDescription className="text-amber-100">
           อัพเดทล่าสุด: {new Date(prices[0]?.updated || Date.now()).toLocaleString('th-TH')}
         </CardDescription>
@@ -105,11 +105,11 @@ const MarketPrices = () => {
               </div>
               <div className="mt-2">
                 <div className="text-2xl font-bold text-amber-300">
-                  ฿{convertToTHB(price.price).toFixed(2)}
-                  <span className="text-sm text-amber-200 font-normal ml-1">/ ปอนด์</span>
+                  ฿{price.price.toFixed(2)}
+                  <span className="text-sm text-amber-200 font-normal ml-1">/ กิโลกรัม</span>
                 </div>
                 <div className="text-sm text-amber-200">
-                  ${price.price.toFixed(2)} {price.currency}/lb
+                  (${convertToPound(price.price).toFixed(2)} USD/lb)
                 </div>
               </div>
             </div>
@@ -117,7 +117,7 @@ const MarketPrices = () => {
         </div>
         
         <div className="mt-4 text-xs text-amber-200 text-center">
-          * ราคาอ้างอิงจากตลาดโลหะนานาชาติ เพื่อการประมาณการณ์เท่านั้น
+          * ราคาอ้างอิงจากตลาดโลหะในประเทศไทย เพื่อการประมาณการณ์เท่านั้น
         </div>
       </CardContent>
     </Card>
