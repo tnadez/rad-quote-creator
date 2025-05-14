@@ -1,10 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MaterialSelector from '@/components/MaterialSelector';
 import SizeSelector from '@/components/SizeSelector';
 import QuoteSummary from '@/components/QuoteSummary';
+import MarketPrices from '@/components/MarketPrices';
 import CarBrandSelector from '@/components/CarBrandSelector';
 import CarModelSelector from '@/components/CarModelSelector';
 import RadiatorPresetInfo from '@/components/RadiatorPresetInfo';
@@ -26,7 +26,7 @@ const Index = () => {
   const [showCarSelector, setShowCarSelector] = useState(true);
 
   // Handle custom size updates
-  const handleCustomSizeUpdate = (width: number, height: number, thickness: number) => {
+  const handleCustomSizeChange = (width: number, height: number, thickness: number) => {
     if (selectedSize) {
       const updatedSize: RadiatorSize = {
         ...selectedSize,
@@ -82,6 +82,10 @@ const Index = () => {
         {showCarSelector ? (
           <div className="space-y-6 mb-8">
             <h1 className="text-3xl font-bold text-center text-amber-700 mb-6">เลือกรถยนต์ของคุณ</h1>
+            
+            {/* Add Market Prices at the top of the car selection screen */}
+            <MarketPrices />
+            
             <CarBrandSelector 
               brands={carBrands}
               selectedBrand={selectedBrand}
@@ -134,6 +138,9 @@ const Index = () => {
             
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2 space-y-6">
+                {/* Add Market Prices component at the top */}
+                <MarketPrices />
+                
                 <MaterialSelector 
                   materials={materials}
                   selectedMaterial={selectedMaterial}
@@ -144,7 +151,7 @@ const Index = () => {
                   sizes={sizes}
                   selectedSize={selectedSize}
                   onSelectSize={setSelectedSize}
-                  onUpdateCustomSize={handleCustomSizeUpdate}
+                  onUpdateCustomSize={handleCustomSizeChange}
                   selectedMaterial={selectedMaterial}
                 />
               </div>
@@ -170,7 +177,7 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-amber-200">
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">เพิ่มประสิทธิภาพสูงสุด</h3>
-                <p>หม้อน้ำแบบกำหนดเองสามารถออกแบบเฉพาะสำหรับความต้องการในการระบายความร้อนของรถคุณ ช่วยให้มั่นใจได้ว่าจะมีประสิทธิภาพสูงสุดในทุกสภาวะ</p>
+                <p>หม้อน้ำแบบกำหนดเองสามารถออกแบบเฉพาะสำหรับความต้องการในการระบายความร้อนของรถคุณ ช่วยให้มั่นใจได้ว่าจะมีประสิทธิภาพสูงสุดในทุกสภา���ะ</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">พอดีกับรถของคุณ</h3>

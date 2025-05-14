@@ -17,7 +17,7 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
       <CardHeader className="text-center">
         <CardTitle className="text-2xl font-bold text-amber-300">เลือกวัสดุ</CardTitle>
         <CardDescription className="text-amber-100">
-          เลือกวัสดุสำหรับหม้อน้ำแบบกำหนดเองของคุณ
+          เลือกวัสดุสำหรับหม้อน้ำแบบกำหนดเองของคุณ (ราคาสะท้อนอัตราตลาดปัจจุบัน)
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -56,6 +56,12 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
                     <p className="text-sm text-amber-200 mt-2 text-center">{material.description}</p>
                     <p className="mt-3 text-lg font-semibold text-amber-300">
                       ฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว
+                      {material.id === 'copper' && (
+                        <span className="ml-2 text-xs px-2 py-0.5 bg-amber-800 rounded-full">ตามราคาตลาด</span>
+                      )}
+                      {material.id === 'brass' && (
+                        <span className="ml-2 text-xs px-2 py-0.5 bg-amber-800 rounded-full">ตามราคาตลาด</span>
+                      )}
                     </p>
                   </Label>
                 </div>
