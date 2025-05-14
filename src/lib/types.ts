@@ -14,6 +14,8 @@ export interface RadiatorSize {
   height: number;
   thickness: number;
   price: number;
+  finType?: string;     // "straight" or "v-shaped"
+  finDensity?: number;  // fins per inch
 }
 
 export interface AdditionalFeature {
@@ -28,6 +30,9 @@ export interface RadiatorConfiguration {
   material: Material | null;
   size: RadiatorSize | null;
   features: AdditionalFeature[];
+  finType?: string;
+  finDensity?: number;
+  capMaterial?: string;
 }
 
 export interface QuoteRequest {

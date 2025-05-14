@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadiatorSize } from '@/lib/types';
 import { calculateCustomBasePrice } from '@/lib/radiator-data';
 
@@ -10,8 +12,10 @@ interface SizeSelectorProps {
   sizes: RadiatorSize[];
   selectedSize: RadiatorSize | null;
   onSelectSize: (size: RadiatorSize) => void;
-  onUpdateCustomSize: (width: number, height: number, thickness: number) => void;
+  onUpdateCustomSize: (width: number, height: number, thickness: number, finType: string, finDensity: number) => void;
+  onUpdateCapMaterial: (capMaterial: string) => void;
   selectedMaterial: { id: string, pricePerSquareInch: number } | null;
+  capMaterial: string;
 }
 
 const SizeSelector = ({ 
@@ -19,11 +23,15 @@ const SizeSelector = ({
   selectedSize, 
   onSelectSize, 
   onUpdateCustomSize,
-  selectedMaterial
+  onUpdateCapMaterial,
+  selectedMaterial,
+  capMaterial
 }: SizeSelectorProps) => {
   const [customWidth, setCustomWidth] = useState<number>(24);
   const [customHeight, setCustomHeight] = useState<number>(16);
   const [customThickness, setCustomThickness] = useState<number>(2.5);
+  const [finType, setFinType] = useState<string>("straight");
+  const [finDensity, setFinDensity] = useState<number>(14);
   const [customBasePrice, setCustomBasePrice] = useState<number>(0);
   const [materialCost, setMaterialCost] = useState<number>(0);
   
@@ -33,8 +41,10 @@ const SizeSelector = ({
   useEffect(() => {
     if (sizes.length > 0) {
       const customSize = sizes[0]; // There should only be one size now
+      customSize.finType = finType;
+      customSize.finDensity = finDensity;
       onSelectSize(customSize);
-      onUpdateCustomSize(customWidth, customHeight, customThickness);
+      onUpdateCustomSize(customWidth, customHeight, customThickness, finType, finDensity);
       const newBasePrice = calculateCustomBasePrice(customWidth, customHeight, customThickness);
       setCustomBasePrice(newBasePrice);
       
@@ -62,7 +72,7 @@ const SizeSelector = ({
     const updatedHeight = dimension === 'height' ? numValue : customHeight;
     const updatedThickness = dimension === 'thickness' ? numValue : customThickness;
     
-    onUpdateCustomSize(updatedWidth, updatedHeight, updatedThickness);
+    onUpdateCustomSize(updatedWidth, updatedHeight, updatedThickness, finType, finDensity);
     const newBasePrice = calculateCustomBasePrice(updatedWidth, updatedHeight, updatedThickness);
     setCustomBasePrice(newBasePrice);
     
@@ -72,6 +82,21 @@ const SizeSelector = ({
       const newMaterialCost = area * selectedMaterial.pricePerSquareInch;
       setMaterialCost(newMaterialCost);
     }
+  };
+
+  const handleFinTypeChange = (value: string) => {
+    setFinType(value);
+    onUpdateCustomSize(customWidth, customHeight, customThickness, value, finDensity);
+  };
+
+  const handleFinDensityChange = (value: string) => {
+    const numValue = parseInt(value);
+    setFinDensity(numValue);
+    onUpdateCustomSize(customWidth, customHeight, customThickness, finType, numValue);
+  };
+
+  const handleCapMaterialChange = (value: string) => {
+    onUpdateCapMaterial(value);
   };
 
   // Update material cost when material changes
@@ -144,6 +169,54 @@ const SizeSelector = ({
                     className="bg-orange-800 text-white border-orange-600"
                   />
                 </div>
+              </div>
+
+              {/* Fin Type Selection */}
+              <div className="mt-4">
+                <Label htmlFor="fin-type" className="text-lg text-amber-300 mb-2 block">รูปแบบครีบระบายความร้อน</Label>
+                <RadioGroup id="fin-type" value={finType} onValueChange={handleFinTypeChange} className="flex space-x-4">
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="straight" id="fin-straight" className="border-amber-400 text-amber-400" />
+                    <Label htmlFor="fin-straight" className="text-amber-100">ครีบแบบตรง</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="v-shaped" id="fin-v" className="border-amber-400 text-amber-400" />
+                    <Label htmlFor="fin-v" className="text-amber-100">ครีบแบบตัววี</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+
+              {/* Fin Density Selection */}
+              <div className="mt-4">
+                <Label htmlFor="fin-density" className="text-lg text-amber-300 mb-2 block">ความถี่ของครีบ (ครีบต่อนิ้ว)</Label>
+                <Select value={finDensity.toString()} onValueChange={handleFinDensityChange}>
+                  <SelectTrigger className="w-full bg-orange-800 text-white border-orange-600">
+                    <SelectValue placeholder="เลือกความถี่ของครีบ" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-orange-800 text-white border-orange-700">
+                    <SelectItem value="10">10 ครีบต่อนิ้ว</SelectItem>
+                    <SelectItem value="12">12 ครีบต่อนิ้ว</SelectItem>
+                    <SelectItem value="14">14 ครีบต่อนิ้ว</SelectItem>
+                    <SelectItem value="16">16 ครีบต่อนิ้ว</SelectItem>
+                    <SelectItem value="18">18 ครีบต่อนิ้ว</SelectItem>
+                    <SelectItem value="20">20 ครีบต่อนิ้ว</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              {/* Cap Material Selection */}
+              <div className="mt-4">
+                <Label htmlFor="cap-material" className="text-lg text-amber-300 mb-2 block">วัสดุฝาหม้อน้ำ</Label>
+                <Select value={capMaterial} onValueChange={handleCapMaterialChange}>
+                  <SelectTrigger className="w-full bg-orange-800 text-white border-orange-600">
+                    <SelectValue placeholder="เลือกวัสดุฝาหม้อน้ำ" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-orange-800 text-white border-orange-700">
+                    <SelectItem value="plastic">พลาสติก</SelectItem>
+                    <SelectItem value="copper">ทองแดง</SelectItem>
+                    <SelectItem value="brass">ทองเหลือง</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               
               <div className="mt-4 grid grid-cols-2 gap-4">

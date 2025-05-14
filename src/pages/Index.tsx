@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -8,6 +9,7 @@ import MarketPrices from '@/components/MarketPrices';
 import CarBrandSelector from '@/components/CarBrandSelector';
 import CarModelSelector from '@/components/CarModelSelector';
 import RadiatorPresetInfo from '@/components/RadiatorPresetInfo';
+import RadiatorRecommendation from '@/components/RadiatorRecommendation';
 import { materials, sizes, calculateTotalPrice } from '@/lib/radiator-data';
 import { carBrands } from '@/lib/car-data';
 import { Material, RadiatorSize, CarBrand, CarModel } from '@/lib/types';
@@ -20,22 +22,36 @@ const Index = () => {
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   
+  // Custom radiator options
+  const [finType, setFinType] = useState<string>("straight");
+  const [finDensity, setFinDensity] = useState<number>(14);
+  const [capMaterial, setCapMaterial] = useState<string>("plastic");
+  
   // Car selection states
   const [selectedBrand, setSelectedBrand] = useState<CarBrand | null>(null);
   const [selectedModel, setSelectedModel] = useState<CarModel | null>(null);
   const [showCarSelector, setShowCarSelector] = useState(true);
 
   // Handle custom size updates
-  const handleCustomSizeChange = (width: number, height: number, thickness: number) => {
+  const handleCustomSizeChange = (width: number, height: number, thickness: number, newFinType: string, newFinDensity: number) => {
     if (selectedSize) {
       const updatedSize: RadiatorSize = {
         ...selectedSize,
         width,
         height,
-        thickness
+        thickness,
+        finType: newFinType,
+        finDensity: newFinDensity
       };
       setSelectedSize(updatedSize);
+      setFinType(newFinType);
+      setFinDensity(newFinDensity);
     }
+  };
+  
+  // Handle cap material updates
+  const handleCapMaterialChange = (newCapMaterial: string) => {
+    setCapMaterial(newCapMaterial);
   };
 
   // Handle preset application
@@ -46,6 +62,18 @@ const Index = () => {
     if (material) {
       setSelectedMaterial(material);
     }
+    
+    // Set default fin type and density from the preset if available
+    if (size.finType) {
+      setFinType(size.finType);
+    }
+    
+    if (size.finDensity) {
+      setFinDensity(size.finDensity);
+    }
+    
+    // Default cap material
+    setCapMaterial('plastic');
     
     // Hide the car selector after applying the preset
     setShowCarSelector(false);
@@ -152,7 +180,16 @@ const Index = () => {
                   selectedSize={selectedSize}
                   onSelectSize={setSelectedSize}
                   onUpdateCustomSize={handleCustomSizeChange}
+                  onUpdateCapMaterial={handleCapMaterialChange}
                   selectedMaterial={selectedMaterial}
+                  capMaterial={capMaterial}
+                />
+                
+                {/* Add the new recommendation component */}
+                <RadiatorRecommendation 
+                  finType={finType}
+                  finDensity={finDensity}
+                  capMaterial={capMaterial}
                 />
               </div>
               
@@ -163,6 +200,9 @@ const Index = () => {
                     size={selectedSize}
                     features={selectedFeatures}
                     totalPrice={totalPrice}
+                    finType={finType}
+                    finDensity={finDensity}
+                    capMaterial={capMaterial}
                   />
                 </div>
               </div>
@@ -177,7 +217,7 @@ const Index = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-amber-200">
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">เพิ่มประสิทธิภาพสูงสุด</h3>
-                <p>หม้อน้ำแบบกำหนดเองสามารถออกแบบเฉพาะสำหรับความต้องการในการระบายความร้อนของรถคุณ ช่วยให้มั่นใจได้ว่าจะมีประสิทธิภาพสูงสุดในทุกสภา���ะ</p>
+                <p>หม้อน้ำแบบกำหนดเองสามารถออกแบบเฉพาะสำหรับความต้องการในการระบายความร้อนของรถคุณ ช่วยให้มั่นใจได้ว่าจะมีประสิทธิภาพสูงสุดในทุกสภาพะ</p>
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">พอดีกับรถของคุณ</h3>
@@ -185,7 +225,7 @@ const Index = () => {
               </div>
               <div>
                 <h3 className="text-xl font-semibold mb-2 text-white">ประโยชน์ของวัสดุ</h3>
-                <p>เลือกวัสดุตามความต้องการเฉพาะของคุณ ไม่ว่าจะเป็นทองแดงสำหรับการระบายความร้อนสูงสุด หรือทองเหลืองสำหรับความสวยงามแบบคลาสสิก</p>
+                <p>เลือกวัสดุตามความต้องการเฉพาะของคุณ ไม่ว่าจะเป็นทองแดงสำหรับการระบายความร้อนสูงสุด หรือทองเหลืองสำหรับความสวยงามแบบคลาสสิค</p>
               </div>
             </div>
           </div>
