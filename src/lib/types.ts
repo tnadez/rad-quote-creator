@@ -38,3 +38,31 @@ export interface QuoteRequest {
   configuration: RadiatorConfiguration;
   totalPrice: number;
 }
+
+export interface CarBrand {
+  id: string;
+  name: string;
+  logo: string;
+}
+
+export interface CarModel {
+  id: string;
+  brandId: string;
+  name: string;
+  year: string;
+  image: string;
+}
+
+export interface RadiatorPreset {
+  id: string;
+  modelId: string;
+  size: {
+    width: number;
+    height: number;
+    thickness: number;
+  };
+  finType: string;
+  finDensity: number;
+  recommendedMaterial: string;
+  capType: string;
+}

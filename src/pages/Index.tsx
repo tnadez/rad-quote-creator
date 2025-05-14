@@ -5,8 +5,12 @@ import Footer from '@/components/Footer';
 import MaterialSelector from '@/components/MaterialSelector';
 import SizeSelector from '@/components/SizeSelector';
 import QuoteSummary from '@/components/QuoteSummary';
+import CarBrandSelector from '@/components/CarBrandSelector';
+import CarModelSelector from '@/components/CarModelSelector';
+import RadiatorPresetInfo from '@/components/RadiatorPresetInfo';
 import { materials, sizes, calculateTotalPrice } from '@/lib/radiator-data';
-import { Material, RadiatorSize } from '@/lib/types';
+import { carBrands } from '@/lib/car-data';
+import { Material, RadiatorSize, CarBrand, CarModel } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
 
 const Index = () => {
@@ -14,6 +18,11 @@ const Index = () => {
   const [selectedSize, setSelectedSize] = useState<RadiatorSize | null>(null);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  
+  // Car selection states
+  const [selectedBrand, setSelectedBrand] = useState<CarBrand | null>(null);
+  const [selectedModel, setSelectedModel] = useState<CarModel | null>(null);
+  const [showCarSelector, setShowCarSelector] = useState(true);
 
   // Handle custom size updates
   const handleCustomSizeUpdate = (width: number, height: number, thickness: number) => {
@@ -28,6 +37,31 @@ const Index = () => {
     }
   };
 
+  // Handle preset application
+  const handleApplyPreset = (size: RadiatorSize, recommendedMaterialId: string) => {
+    setSelectedSize(size);
+    
+    const material = materials.find(m => m.id === recommendedMaterialId);
+    if (material) {
+      setSelectedMaterial(material);
+    }
+    
+    // Hide the car selector after applying the preset
+    setShowCarSelector(false);
+  };
+
+  // Reset car selection
+  const resetCarSelection = () => {
+    setSelectedBrand(null);
+    setSelectedModel(null);
+    setShowCarSelector(true);
+  };
+
+  // Reset material and size when changing car brand
+  useEffect(() => {
+    setSelectedModel(null);
+  }, [selectedBrand]);
+
   // Calculate total price whenever configuration changes
   useEffect(() => {
     const price = calculateTotalPrice(selectedMaterial, selectedSize, selectedFeatures);
@@ -39,33 +73,83 @@ const Index = () => {
       <Header />
       
       <main className="container mx-auto px-4 py-8 flex-1">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
-            <MaterialSelector 
-              materials={materials}
-              selectedMaterial={selectedMaterial}
-              onSelectMaterial={setSelectedMaterial}
+        {showCarSelector ? (
+          <div className="space-y-6 mb-8">
+            <h1 className="text-3xl font-bold text-center text-amber-700 mb-6">เลือกรถยนต์ของคุณ</h1>
+            <CarBrandSelector 
+              brands={carBrands}
+              selectedBrand={selectedBrand}
+              onSelectBrand={setSelectedBrand}
             />
             
-            <SizeSelector 
-              sizes={sizes}
-              selectedSize={selectedSize}
-              onSelectSize={setSelectedSize}
-              onUpdateCustomSize={handleCustomSizeUpdate}
-            />
-          </div>
-          
-          <div className="lg:col-span-1">
-            <div className="sticky top-4">
-              <QuoteSummary 
-                material={selectedMaterial}
-                size={selectedSize}
-                features={selectedFeatures}
-                totalPrice={totalPrice}
+            {selectedBrand && (
+              <CarModelSelector 
+                selectedBrand={selectedBrand}
+                selectedModel={selectedModel}
+                onSelectModel={setSelectedModel}
               />
+            )}
+            
+            {selectedModel && (
+              <RadiatorPresetInfo 
+                selectedModel={selectedModel}
+                onApplyPreset={handleApplyPreset}
+              />
+            )}
+            
+            <div className="flex justify-center mt-4">
+              <button 
+                onClick={() => setShowCarSelector(false)}
+                className="bg-orange-800 text-amber-100 px-6 py-2 rounded-md hover:bg-orange-900 transition"
+              >
+                ข้ามไปยังการกำหนดค่าเอง
+              </button>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              {selectedModel && (
+                <div className="flex items-center justify-between px-4 py-2 bg-amber-900/50 border border-amber-700 rounded-lg mb-4">
+                  <div>
+                    <span className="text-amber-300 font-medium">กำลังกำหนดค่าหม้อน้ำสำหรับ:</span>
+                    <span className="ml-2 text-white">{selectedBrand?.name} {selectedModel.name} ({selectedModel.year})</span>
+                  </div>
+                  <button 
+                    onClick={resetCarSelection} 
+                    className="text-amber-300 hover:text-amber-500 text-sm underline"
+                  >
+                    เปลี่ยนรถยนต์
+                  </button>
+                </div>
+              )}
+              
+              <MaterialSelector 
+                materials={materials}
+                selectedMaterial={selectedMaterial}
+                onSelectMaterial={setSelectedMaterial}
+              />
+              
+              <SizeSelector 
+                sizes={sizes}
+                selectedSize={selectedSize}
+                onSelectSize={setSelectedSize}
+                onUpdateCustomSize={handleCustomSizeUpdate}
+              />
+            </div>
+            
+            <div className="lg:col-span-1">
+              <div className="sticky top-4">
+                <QuoteSummary 
+                  material={selectedMaterial}
+                  size={selectedSize}
+                  features={selectedFeatures}
+                  totalPrice={totalPrice}
+                />
+              </div>
+            </div>
+          </div>
+        )}
         
         <div className="my-12">
           <Separator className="bg-orange-700" />
