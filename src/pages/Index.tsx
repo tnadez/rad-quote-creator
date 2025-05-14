@@ -12,6 +12,7 @@ import { materials, sizes, calculateTotalPrice } from '@/lib/radiator-data';
 import { carBrands } from '@/lib/car-data';
 import { Material, RadiatorSize, CarBrand, CarModel } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
@@ -26,7 +27,7 @@ const Index = () => {
 
   // Handle custom size updates
   const handleCustomSizeUpdate = (width: number, height: number, thickness: number) => {
-    if (selectedSize && selectedSize.id === 'custom') {
+    if (selectedSize) {
       const updatedSize: RadiatorSize = {
         ...selectedSize,
         width,
@@ -54,6 +55,11 @@ const Index = () => {
   const resetCarSelection = () => {
     setSelectedBrand(null);
     setSelectedModel(null);
+    setShowCarSelector(true);
+  };
+  
+  // Return to car selection screen
+  const handleReturnToCarSelection = () => {
     setShowCarSelector(true);
   };
 
@@ -98,54 +104,60 @@ const Index = () => {
             )}
             
             <div className="flex justify-center mt-4">
-              <button 
+              <Button 
                 onClick={() => setShowCarSelector(false)}
                 className="bg-orange-800 text-amber-100 px-6 py-2 rounded-md hover:bg-orange-900 transition"
               >
                 ข้ามไปยังการกำหนดค่าเอง
-              </button>
+              </Button>
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <Button 
+                onClick={handleReturnToCarSelection} 
+                className="bg-orange-800 text-amber-100 px-6 py-2 rounded-md hover:bg-orange-900 transition mb-4"
+              >
+                กลับไปเลือกรถยนต์
+              </Button>
+              
               {selectedModel && (
-                <div className="flex items-center justify-between px-4 py-2 bg-amber-900/50 border border-amber-700 rounded-lg mb-4">
+                <div className="flex items-center justify-between px-4 py-2 bg-amber-900/50 border border-amber-700 rounded-lg">
                   <div>
                     <span className="text-amber-300 font-medium">กำลังกำหนดค่าหม้อน้ำสำหรับ:</span>
                     <span className="ml-2 text-white">{selectedBrand?.name} {selectedModel.name} ({selectedModel.year})</span>
                   </div>
-                  <button 
-                    onClick={resetCarSelection} 
-                    className="text-amber-300 hover:text-amber-500 text-sm underline"
-                  >
-                    เปลี่ยนรถยนต์
-                  </button>
                 </div>
               )}
-              
-              <MaterialSelector 
-                materials={materials}
-                selectedMaterial={selectedMaterial}
-                onSelectMaterial={setSelectedMaterial}
-              />
-              
-              <SizeSelector 
-                sizes={sizes}
-                selectedSize={selectedSize}
-                onSelectSize={setSelectedSize}
-                onUpdateCustomSize={handleCustomSizeUpdate}
-              />
             </div>
             
-            <div className="lg:col-span-1">
-              <div className="sticky top-4">
-                <QuoteSummary 
-                  material={selectedMaterial}
-                  size={selectedSize}
-                  features={selectedFeatures}
-                  totalPrice={totalPrice}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              <div className="lg:col-span-2 space-y-6">
+                <MaterialSelector 
+                  materials={materials}
+                  selectedMaterial={selectedMaterial}
+                  onSelectMaterial={setSelectedMaterial}
                 />
+                
+                <SizeSelector 
+                  sizes={sizes}
+                  selectedSize={selectedSize}
+                  onSelectSize={setSelectedSize}
+                  onUpdateCustomSize={handleCustomSizeUpdate}
+                  selectedMaterial={selectedMaterial}
+                />
+              </div>
+              
+              <div className="lg:col-span-1">
+                <div className="sticky top-4">
+                  <QuoteSummary 
+                    material={selectedMaterial}
+                    size={selectedSize}
+                    features={selectedFeatures}
+                    totalPrice={totalPrice}
+                  />
+                </div>
               </div>
             </div>
           </div>

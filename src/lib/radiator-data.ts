@@ -1,4 +1,3 @@
-
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -20,35 +19,11 @@ export const materials: Material[] = [
 
 export const sizes: RadiatorSize[] = [
   {
-    id: 'small',
-    name: 'เล็ก (มาตรฐาน)',
-    width: 18,
-    height: 12,
-    thickness: 2,
-    price: 120
-  },
-  {
-    id: 'medium',
-    name: 'กลาง (สมรรถนะสูง)',
+    id: 'custom',
+    name: 'ขนาดกำหนดเอง',
     width: 24,
     height: 16,
     thickness: 2.5,
-    price: 180
-  },
-  {
-    id: 'large',
-    name: 'ใหญ่ (แข่งขัน)',
-    width: 30,
-    height: 18,
-    thickness: 3,
-    price: 250
-  },
-  {
-    id: 'custom',
-    name: 'ขนาดกำหนดเอง',
-    width: 0,
-    height: 0,
-    thickness: 0,
     price: 0
   }
 ];
@@ -118,18 +93,12 @@ export const calculateTotalPrice = (
   let basePrice = 0;
   
   // Calculate material cost
-  if (size.id !== 'custom') {
-    // For standard sizes
-    const area = size.width * size.height;
-    const materialCost = area * material.pricePerSquareInch;
-    basePrice = size.price + materialCost;
-  } else {
-    // For custom sizes
-    const area = size.width * size.height;
-    const materialCost = area * material.pricePerSquareInch;
-    const customBasePrice = calculateCustomBasePrice(size.width, size.height, size.thickness);
-    basePrice = materialCost + customBasePrice;
-  }
+  const area = size.width * size.height;
+  const materialCost = area * material.pricePerSquareInch;
+  
+  // For custom size
+  const customBasePrice = calculateCustomBasePrice(size.width, size.height, size.thickness);
+  basePrice = materialCost + customBasePrice;
   
   // Add feature costs
   const featuresTotal = features.reduce((sum, feature) => sum + feature.price, 0);

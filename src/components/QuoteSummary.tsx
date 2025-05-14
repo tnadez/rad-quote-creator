@@ -43,8 +43,17 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
   
   // Calculate custom base price for display
   const getCustomBasePrice = () => {
-    if (size && size.id === 'custom') {
+    if (size) {
       return calculateCustomBasePrice(size.width, size.height, size.thickness);
+    }
+    return 0;
+  };
+  
+  // Calculate material cost for display
+  const getMaterialCost = () => {
+    if (material && size) {
+      const area = size.width * size.height;
+      return area * material.pricePerSquareInch;
     }
     return 0;
   };
@@ -67,6 +76,12 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
                   <p className="font-medium">{material.name}</p>
                   <p className="text-amber-300">฿{(material.pricePerSquareInch * 30).toFixed(2)}/ตร.นิ้ว</p>
                 </div>
+                
+                {size && (
+                  <p className="text-amber-200 mt-2">
+                    ค่าวัสดุรวม: ฿{(getMaterialCost() * 30).toFixed(2)}
+                  </p>
+                )}
               </div>
             ) : (
               <p className="text-amber-400/70">ยังไม่ได้เลือกวัสดุ</p>
@@ -79,17 +94,14 @@ const QuoteSummary = ({ material, size, features, totalPrice }: QuoteSummaryProp
               <div className="bg-orange-950 rounded-lg p-3 border border-orange-700">
                 <div className="flex justify-between mb-1">
                   <p className="font-medium">{size.name}</p>
-                  {size.id !== 'custom' && <p className="text-amber-300">฿{(size.price * 30).toFixed(2)}</p>}
                 </div>
                 <div className="text-sm text-amber-200 space-y-1">
                   {size.width > 0 && <p>กว้าง: {size.width} นิ้ว</p>}
                   {size.height > 0 && <p>สูง: {size.height} นิ้ว</p>}
                   {size.thickness > 0 && <p>หนา: {size.thickness} นิ้ว</p>}
-                  {size.id === 'custom' && (
-                    <p className="mt-2 text-amber-300">
-                      ราคาพื้นฐาน: ฿{(getCustomBasePrice() * 30).toFixed(2)} (คำนวณตามขนาด)
-                    </p>
-                  )}
+                  <p className="mt-2 text-amber-300">
+                    ราคาพื้นฐาน: ฿{(getCustomBasePrice() * 30).toFixed(2)}
+                  </p>
                 </div>
               </div>
             ) : (
