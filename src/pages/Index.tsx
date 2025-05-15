@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -10,6 +9,7 @@ import CarBrandSelector from '@/components/CarBrandSelector';
 import CarModelSelector from '@/components/CarModelSelector';
 import RadiatorPresetInfo from '@/components/RadiatorPresetInfo';
 import RadiatorRecommendation from '@/components/RadiatorRecommendation';
+import RadiatorComparison from '@/components/RadiatorComparison';
 import { materials, sizes, calculateTotalPrice } from '@/lib/radiator-data';
 import { carBrands } from '@/lib/car-data';
 import { Material, RadiatorSize, CarBrand, CarModel } from '@/lib/types';
@@ -191,6 +191,19 @@ const Index = () => {
                   finDensity={finDensity}
                   capMaterial={capMaterial}
                 />
+                
+                {/* Add the new comparison component after recommendations */}
+                {selectedModel && (
+                  <RadiatorComparison
+                    selectedModel={selectedModel}
+                    selectedMaterial={selectedMaterial}
+                    selectedSize={selectedSize}
+                    finType={finType}
+                    finDensity={finDensity}
+                    capMaterial={capMaterial}
+                    totalPrice={totalPrice}
+                  />
+                )}
               </div>
               
               <div className="lg:col-span-1">
