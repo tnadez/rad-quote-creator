@@ -6,7 +6,7 @@ import { Material, RadiatorSize, CarModel, RadiatorPreset } from '@/lib/types';
 import { Separator } from "@/components/ui/separator";
 import { getPresetByModelId } from '@/lib/car-data';
 import { materials } from '@/lib/radiator-data';
-import { Compare } from "lucide-react";
+import { GitCompare } from "lucide-react";
 
 interface RadiatorComparisonProps {
   selectedModel: CarModel | null;
@@ -64,7 +64,7 @@ const RadiatorComparison = ({
         onClick={() => setShowComparison(!showComparison)} 
         className="w-full border-2 border-amber-700 bg-amber-800/30 text-amber-100 hover:bg-amber-800/50 mb-4"
       >
-        <Compare className="mr-2" size={18} />
+        <GitCompare className="mr-2" size={18} />
         {showComparison ? "ซ่อนการเปรียบเทียบ" : "เปรียบเทียบกับรุ่นแนะนำ"}
       </Button>
       
