@@ -29,7 +29,7 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
           }}
         >
           <div className="flex justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl">
               {materials.map((material) => (
                 <div key={material.id} className="relative">
                   <RadioGroupItem
@@ -45,7 +45,7 @@ const MaterialSelector = ({ materials, selectedMaterial, onSelectMaterial }: Mat
                         : "border-orange-700 bg-orange-950 hover:border-orange-500"
                     }`}
                   >
-                    <div className="w-full h-48 mb-4 rounded overflow-hidden bg-orange-800 flex items-center justify-center">
+                    <div className="w-full h-60 mb-4 rounded overflow-hidden flex items-center justify-center">
                       <img 
                         src={material.image} 
                         alt={material.name} 

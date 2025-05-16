@@ -35,21 +35,21 @@ export const carModels: CarModel[] = [
     brandId: 'toyota',
     name: 'Camry',
     year: '2018-2023',
-    image: '/images/toyota-camry.jpg'
+    image: '/lovable-uploads/b919c0e0-4a55-49fd-aa79-ea43733bbde2.png'
   },
   {
     id: 'corolla',
     brandId: 'toyota',
     name: 'Corolla',
     year: '2019-2023',
-    image: '/images/toyota-corolla.jpg'
+    image: '/lovable-uploads/0350fefc-1266-4975-9a8d-30f524af6951.png'
   },
   {
     id: 'fortuner',
     brandId: 'toyota',
     name: 'Fortuner',
     year: '2016-2023',
-    image: '/images/toyota-fortuner.jpg'
+    image: '/lovable-uploads/2e1717a4-a928-4134-bdee-9235dee67b0f.png'
   },
   
   // Honda models
