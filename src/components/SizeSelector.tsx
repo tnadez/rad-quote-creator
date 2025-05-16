@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
@@ -35,8 +34,8 @@ const SizeSelector = ({
   const [customBasePrice, setCustomBasePrice] = useState<number>(0);
   const [materialCost, setMaterialCost] = useState<number>(0);
   
-  // Size image for custom
-  const customSizeImage = '/images/custom-radiator.jpg';
+  // Updated image for custom size radiator
+  const customSizeImage = '/lovable-uploads/1fa9bb9a-7a92-415c-9146-45dce7bec634.png';
   
   useEffect(() => {
     if (sizes.length > 0) {
@@ -122,11 +121,11 @@ const SizeSelector = ({
         <div className="space-y-4">
           <div className="relative">
             <div className="flex flex-col p-4 rounded-lg border-2 border-orange-700 bg-orange-950">
-              <div className="w-full h-32 mb-3 rounded overflow-hidden bg-orange-800">
+              <div className="w-full h-48 mb-3 rounded overflow-hidden bg-orange-950">
                 <img 
                   src={customSizeImage} 
                   alt="Custom size radiator example"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
               <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
