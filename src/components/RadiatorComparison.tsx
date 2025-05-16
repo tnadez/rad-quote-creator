@@ -62,9 +62,10 @@ const RadiatorComparison = ({
       <Button 
         variant="outline" 
         onClick={() => setShowComparison(!showComparison)} 
-        className="w-full border-2 border-amber-700 bg-amber-800/30 text-amber-100 hover:bg-amber-800/50 mb-4"
+        className="w-full py-5 text-lg font-bold border-3 border-amber-500 bg-gradient-to-r from-amber-600 to-orange-700 text-white hover:from-amber-700 hover:to-orange-800 hover:shadow-xl transition-all duration-300 shadow-md shadow-orange-900/30 mb-6 rounded-lg"
+        size="lg"
       >
-        <GitCompare className="mr-2" size={18} />
+        <GitCompare className="mr-3" size={24} />
         {showComparison ? "ซ่อนการเปรียบเทียบ" : "เปรียบเทียบกับรุ่นแนะนำ"}
       </Button>
       
