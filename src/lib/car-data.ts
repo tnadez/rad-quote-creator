@@ -1,31 +1,30 @@
-
 import { CarBrand, CarModel, RadiatorPreset } from './types';
 
 export const carBrands: CarBrand[] = [
   {
     id: 'toyota',
     name: 'Toyota',
-    logo: '/images/toyota-logo.png'
+    logo: '/lovable-uploads/04f01520-5580-4849-b715-c88be484e603.png'
   },
   {
     id: 'honda',
     name: 'Honda',
-    logo: '/images/honda-logo.png'
+    logo: '/lovable-uploads/8651bfd5-df8b-43eb-aa0c-67047f5e6edb.png'
   },
   {
     id: 'nissan',
     name: 'Nissan',
-    logo: '/images/nissan-logo.png'
+    logo: '/lovable-uploads/f70b2ccd-46e5-46dd-92dd-87496ff6787b.png'
   },
   {
     id: 'isuzu',
     name: 'Isuzu',
-    logo: '/images/isuzu-logo.png'
+    logo: '/lovable-uploads/4c02e7fc-52bb-45bb-a2a5-f1c714790b8f.png'
   },
   {
     id: 'mazda',
     name: 'Mazda',
-    logo: '/images/mazda-logo.png'
+    logo: '/lovable-uploads/966178b3-5f83-4b92-b9e3-bcc4a42176d4.png'
   }
 ];
 

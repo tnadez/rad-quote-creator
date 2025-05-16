@@ -30,7 +30,7 @@ const CarBrandSelector = ({ brands, selectedBrand, onSelectBrand }: CarBrandSele
           }}
         >
           <div className="flex justify-center">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 max-w-4xl">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-4xl">
               {brands.map((brand) => (
                 <div key={brand.id} className="relative">
                   <RadioGroupItem
@@ -40,13 +40,13 @@ const CarBrandSelector = ({ brands, selectedBrand, onSelectBrand }: CarBrandSele
                   />
                   <Label
                     htmlFor={`brand-${brand.id}`}
-                    className={`brand-option flex flex-col items-center p-3 rounded-lg border-2 cursor-pointer ${
+                    className={`brand-option flex flex-col items-center p-4 rounded-lg border-2 cursor-pointer ${
                       selectedBrand?.id === brand.id 
                         ? "border-amber-500 bg-amber-900/60" 
                         : "border-orange-700 bg-orange-950 hover:border-orange-500"
                     }`}
                   >
-                    <div className="w-16 h-16 mb-2 rounded overflow-hidden bg-white/10 flex items-center justify-center p-2">
+                    <div className="w-24 h-24 mb-3 rounded overflow-hidden bg-white flex items-center justify-center p-2">
                       {brand.logo ? (
                         <img 
                           src={brand.logo} 
@@ -54,7 +54,7 @@ const CarBrandSelector = ({ brands, selectedBrand, onSelectBrand }: CarBrandSele
                           className="object-contain w-full h-full" 
                         />
                       ) : (
-                        <CarFront className="w-8 h-8 text-amber-300" />
+                        <CarFront className="w-10 h-10 text-amber-300" />
                       )}
                     </div>
                     <h3 className="text-md font-medium text-white text-center">{brand.name}</h3>
