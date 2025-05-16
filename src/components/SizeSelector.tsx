@@ -6,6 +6,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadiatorSize } from '@/lib/types';
 import { calculateCustomBasePrice } from '@/lib/radiator-data';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface SizeSelectorProps {
   sizes: RadiatorSize[];
@@ -34,8 +35,8 @@ const SizeSelector = ({
   const [customBasePrice, setCustomBasePrice] = useState<number>(0);
   const [materialCost, setMaterialCost] = useState<number>(0);
   
-  // Updated image for custom size radiator
-  const customSizeImage = '/lovable-uploads/1fa9bb9a-7a92-415c-9146-45dce7bec634.png';
+  // Updated image for custom size radiator with the new image
+  const customSizeImage = '/lovable-uploads/a2d7ea54-6ab8-4c84-8c55-38e113602459.png';
   
   useEffect(() => {
     if (sizes.length > 0) {
@@ -121,12 +122,15 @@ const SizeSelector = ({
         <div className="space-y-4">
           <div className="relative">
             <div className="flex flex-col p-4 rounded-lg border-2 border-orange-700 bg-orange-950">
-              <div className="w-full h-48 mb-3 rounded overflow-hidden bg-orange-950">
-                <img 
-                  src={customSizeImage} 
-                  alt="Custom size radiator example"
-                  className="w-full h-full object-contain"
-                />
+              {/* Use AspectRatio to maintain proper ratio and fill the container */}
+              <div className="w-full mb-3 rounded overflow-hidden bg-black">
+                <AspectRatio ratio={16/9} className="bg-black">
+                  <img 
+                    src={customSizeImage} 
+                    alt="Custom size radiator example"
+                    className="w-full h-full object-contain"
+                  />
+                </AspectRatio>
               </div>
               <h3 className="text-xl font-medium text-white">ขนาดกำหนดเอง</h3>
               
