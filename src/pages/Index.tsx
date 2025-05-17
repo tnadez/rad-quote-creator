@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -10,7 +11,7 @@ import CarModelSelector from '@/components/CarModelSelector';
 import RadiatorPresetInfo from '@/components/RadiatorPresetInfo';
 import RadiatorRecommendation from '@/components/RadiatorRecommendation';
 import RadiatorComparison from '@/components/RadiatorComparison';
-import { materials, sizes, calculateTotalPrice } from '@/lib/radiator-data';
+import { materials, sizes, calculateTotalPrice, finTypePrices, finDensityPrices, capMaterialPrices } from '@/lib/radiator-data';
 import { carBrands } from '@/lib/car-data';
 import { Material, RadiatorSize, CarBrand, CarModel } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
@@ -98,9 +99,9 @@ const Index = () => {
 
   // Calculate total price whenever configuration changes
   useEffect(() => {
-    const price = calculateTotalPrice(selectedMaterial, selectedSize, selectedFeatures);
+    const price = calculateTotalPrice(selectedMaterial, selectedSize, selectedFeatures, finType, finDensity, capMaterial);
     setTotalPrice(price);
-  }, [selectedMaterial, selectedSize, selectedFeatures]);
+  }, [selectedMaterial, selectedSize, selectedFeatures, finType, finDensity, capMaterial]);
 
   return (
     <div className="flex flex-col min-h-screen">

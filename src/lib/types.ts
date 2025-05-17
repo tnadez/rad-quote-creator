@@ -33,6 +33,10 @@ export interface RadiatorConfiguration {
   finType?: string;
   finDensity?: number;
   capMaterial?: string;
+  // Add prices for custom options
+  finTypePrice?: number;
+  finDensityPrice?: number;
+  capMaterialPrice?: number;
 }
 
 export interface QuoteRequest {

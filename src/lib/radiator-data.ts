@@ -1,3 +1,4 @@
+
 import { Material, RadiatorSize, AdditionalFeature } from './types';
 
 export const materials: Material[] = [
@@ -27,6 +28,27 @@ export const sizes: RadiatorSize[] = [
     price: 0
   }
 ];
+
+// Pricing configuration for custom options
+export const finTypePrices = {
+  'straight': 0,      // Standard option (no additional cost)
+  'v-shaped': 250     // Premium option (additional cost)
+};
+
+export const finDensityPrices = {
+  '10': 0,            // Low density (no additional cost)
+  '12': 50,           // Medium-low density
+  '14': 100,          // Medium density (standard)
+  '16': 150,          // Medium-high density
+  '18': 200,          // High density
+  '20': 250           // Very high density
+};
+
+export const capMaterialPrices = {
+  'plastic': 0,       // Standard option (no additional cost)
+  'copper': 350,      // Premium option (high additional cost)
+  'brass': 250        // Mid-tier option (medium additional cost)
+};
 
 export const additionalFeatures: AdditionalFeature[] = [
   {
@@ -86,7 +108,10 @@ export const calculateCustomBasePrice = (width: number, height: number, thicknes
 export const calculateTotalPrice = (
   material: Material | null, 
   size: RadiatorSize | null, 
-  features: AdditionalFeature[]
+  features: AdditionalFeature[],
+  finType: string = 'straight',
+  finDensity: number = 14,
+  capMaterial: string = 'plastic'
 ): number => {
   if (!material || !size) return 0;
   
@@ -103,5 +128,14 @@ export const calculateTotalPrice = (
   // Add feature costs
   const featuresTotal = features.reduce((sum, feature) => sum + feature.price, 0);
   
-  return Math.round((basePrice + featuresTotal) * 100) / 100;
+  // Add fin type cost
+  const finTypePrice = finTypePrices[finType as keyof typeof finTypePrices] || 0;
+  
+  // Add fin density cost
+  const finDensityPrice = finDensityPrices[finDensity.toString() as keyof typeof finDensityPrices] || 0;
+  
+  // Add cap material cost
+  const capMaterialPrice = capMaterialPrices[capMaterial as keyof typeof capMaterialPrices] || 0;
+  
+  return Math.round((basePrice + featuresTotal + finTypePrice + finDensityPrice + capMaterialPrice) * 100) / 100;
 };
