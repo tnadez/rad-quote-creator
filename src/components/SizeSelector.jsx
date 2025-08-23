@@ -1,23 +1,11 @@
-
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { RadiatorSize } from '@/lib/types';
 import { calculateCustomBasePrice, finTypePrices, finDensityPrices, capMaterialPrices } from '@/lib/radiator-data';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-
-interface SizeSelectorProps {
-  sizes: RadiatorSize[];
-  selectedSize: RadiatorSize | null;
-  onSelectSize: (size: RadiatorSize) => void;
-  onUpdateCustomSize: (width: number, height: number, thickness: number, finType: string, finDensity: number) => void;
-  onUpdateCapMaterial: (capMaterial: string) => void;
-  selectedMaterial: { id: string, pricePerSquareInch: number } | null;
-  capMaterial: string;
-}
 
 const SizeSelector = ({ 
   sizes, 
@@ -27,14 +15,14 @@ const SizeSelector = ({
   onUpdateCapMaterial,
   selectedMaterial,
   capMaterial
-}: SizeSelectorProps) => {
-  const [customWidth, setCustomWidth] = useState<number>(24);
-  const [customHeight, setCustomHeight] = useState<number>(16);
-  const [customThickness, setCustomThickness] = useState<number>(2.5);
-  const [finType, setFinType] = useState<string>("straight");
-  const [finDensity, setFinDensity] = useState<number>(14);
-  const [customBasePrice, setCustomBasePrice] = useState<number>(0);
-  const [materialCost, setMaterialCost] = useState<number>(0);
+}) => {
+  const [customWidth, setCustomWidth] = useState(24);
+  const [customHeight, setCustomHeight] = useState(16);
+  const [customThickness, setCustomThickness] = useState(2.5);
+  const [finType, setFinType] = useState("straight");
+  const [finDensity, setFinDensity] = useState(14);
+  const [customBasePrice, setCustomBasePrice] = useState(0);
+  const [materialCost, setMaterialCost] = useState(0);
   
   // Updated image for custom size radiator with the new image
   const customSizeImage = '/lovable-uploads/a2d7ea54-6ab8-4c84-8c55-38e113602459.png';
@@ -58,7 +46,7 @@ const SizeSelector = ({
     }
   }, []);
 
-  const handleCustomSizeChange = (dimension: string, value: string) => {
+  const handleCustomSizeChange = (dimension, value) => {
     const numValue = parseFloat(value) || 0;
     
     if (dimension === 'width') {
@@ -85,18 +73,18 @@ const SizeSelector = ({
     }
   };
 
-  const handleFinTypeChange = (value: string) => {
+  const handleFinTypeChange = (value) => {
     setFinType(value);
     onUpdateCustomSize(customWidth, customHeight, customThickness, value, finDensity);
   };
 
-  const handleFinDensityChange = (value: string) => {
+  const handleFinDensityChange = (value) => {
     const numValue = parseInt(value);
     setFinDensity(numValue);
     onUpdateCustomSize(customWidth, customHeight, customThickness, finType, numValue);
   };
 
-  const handleCapMaterialChange = (value: string) => {
+  const handleCapMaterialChange = (value) => {
     onUpdateCapMaterial(value);
   };
 
@@ -112,9 +100,9 @@ const SizeSelector = ({
   }, [selectedMaterial, customWidth, customHeight]);
 
   // Get prices for the current selections
-  const currentFinTypePrice = finTypePrices[finType as keyof typeof finTypePrices] || 0;
-  const currentFinDensityPrice = finDensityPrices[finDensity.toString() as keyof typeof finDensityPrices] || 0;
-  const currentCapMaterialPrice = capMaterialPrices[capMaterial as keyof typeof capMaterialPrices] || 0;
+  const currentFinTypePrice = finTypePrices[finType] || 0;
+  const currentFinDensityPrice = finDensityPrices[finDensity.toString()] || 0;
+  const currentCapMaterialPrice = capMaterialPrices[capMaterial] || 0;
 
   return (
     <Card className="w-full border-2 border-amber-700 bg-gradient-to-r from-red-900 via-orange-900 to-amber-900 text-white shadow-xl">

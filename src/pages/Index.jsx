@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -13,30 +12,29 @@ import RadiatorRecommendation from '@/components/RadiatorRecommendation';
 import RadiatorComparison from '@/components/RadiatorComparison';
 import { materials, sizes, calculateTotalPrice, finTypePrices, finDensityPrices, capMaterialPrices } from '@/lib/radiator-data';
 import { carBrands } from '@/lib/car-data';
-import { Material, RadiatorSize, CarBrand, CarModel } from '@/lib/types';
 import { Separator } from '@/components/ui/separator';
 import { Button } from '@/components/ui/button';
 
 const Index = () => {
-  const [selectedMaterial, setSelectedMaterial] = useState<Material | null>(null);
-  const [selectedSize, setSelectedSize] = useState<RadiatorSize | null>(null);
+  const [selectedMaterial, setSelectedMaterial] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(null);
   const [selectedFeatures, setSelectedFeatures] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   
   // Custom radiator options
-  const [finType, setFinType] = useState<string>("straight");
-  const [finDensity, setFinDensity] = useState<number>(14);
-  const [capMaterial, setCapMaterial] = useState<string>("plastic");
+  const [finType, setFinType] = useState("straight");
+  const [finDensity, setFinDensity] = useState(14);
+  const [capMaterial, setCapMaterial] = useState("plastic");
   
   // Car selection states
-  const [selectedBrand, setSelectedBrand] = useState<CarBrand | null>(null);
-  const [selectedModel, setSelectedModel] = useState<CarModel | null>(null);
+  const [selectedBrand, setSelectedBrand] = useState(null);
+  const [selectedModel, setSelectedModel] = useState(null);
   const [showCarSelector, setShowCarSelector] = useState(true);
 
   // Handle custom size updates
-  const handleCustomSizeChange = (width: number, height: number, thickness: number, newFinType: string, newFinDensity: number) => {
+  const handleCustomSizeChange = (width, height, thickness, newFinType, newFinDensity) => {
     if (selectedSize) {
-      const updatedSize: RadiatorSize = {
+      const updatedSize = {
         ...selectedSize,
         width,
         height,
@@ -51,12 +49,12 @@ const Index = () => {
   };
   
   // Handle cap material updates
-  const handleCapMaterialChange = (newCapMaterial: string) => {
+  const handleCapMaterialChange = (newCapMaterial) => {
     setCapMaterial(newCapMaterial);
   };
 
   // Handle preset application
-  const handleApplyPreset = (size: RadiatorSize, recommendedMaterialId: string) => {
+  const handleApplyPreset = (size, recommendedMaterialId) => {
     setSelectedSize(size);
     
     const material = materials.find(m => m.id === recommendedMaterialId);

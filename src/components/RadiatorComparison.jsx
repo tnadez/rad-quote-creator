@@ -1,22 +1,10 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Material, RadiatorSize, CarModel, RadiatorPreset } from '@/lib/types';
 import { Separator } from "@/components/ui/separator";
 import { getPresetByModelId } from '@/lib/car-data';
 import { materials } from '@/lib/radiator-data';
 import { GitCompare } from "lucide-react";
-
-interface RadiatorComparisonProps {
-  selectedModel: CarModel | null;
-  selectedMaterial: Material | null;
-  selectedSize: RadiatorSize | null;
-  finType: string;
-  finDensity: number;
-  capMaterial: string;
-  totalPrice: number;
-}
 
 const RadiatorComparison = ({
   selectedModel,
@@ -26,7 +14,7 @@ const RadiatorComparison = ({
   finDensity,
   capMaterial,
   totalPrice
-}: RadiatorComparisonProps) => {
+}) => {
   const [showComparison, setShowComparison] = useState(false);
   
   // If we don't have a selected model, or specs aren't complete, don't show the comparison button
