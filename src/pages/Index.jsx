@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Navbar from '@/components/Navbar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MaterialSelector from '@/components/MaterialSelector';
@@ -103,6 +104,7 @@ const Index = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <Navbar />
       <Header />
       
       <main className="container mx-auto px-4 py-8 flex-1">
